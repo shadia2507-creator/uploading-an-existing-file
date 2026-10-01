@@ -1,0 +1,1511 @@
+<!doctype html>
+<html lang="es-CO">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>El Ritual Secreto de la Puerta Plateada</title>
+<meta name="description" content="¡Abriste la Puerta Plateada! Libera a los monstruos del sabor de Bon Yurt, Alpinette y Yogo Yogo, junta los 3 sellos y únete al reto #LickArtAlpina.">
+<meta name="theme-color" content="#140b3d">
+<meta property="og:title" content="El Ritual Secreto de la Puerta Plateada · Alpina">
+<meta property="og:description" content="Los monstruos del sabor se escaparon. ¿Te atreves a juntar los 3 sellos?">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Creepster&family=Fredoka:wght@500;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0b0630;
+  --night:#140b3d;
+  --night-2:#22105a;
+  --alpina:#2350d0;
+  --alpina-2:#1a3fb0;
+  --cream:#f6efe6;
+  --paper:#fffaf2;
+  --slime:#8cff3a;
+  --slime-d:#4fb81a;
+  --orange:#ff7a1a;
+  --yellow:#ffd84d;
+  --purple:#9b5de5;
+  --grape:#6a2c91;
+  --jam:#e0245e;
+  --c-bon:#ff7a1a;
+  --c-alp:#e0245e;
+  --c-yog:#9b5de5;
+  --silver:linear-gradient(135deg,#9aa0a8 0%,#ffffff 22%,#aeb4bb 42%,#ffffff 58%,#8c929a 78%,#e6e9ec 100%);
+  --stripes:repeating-linear-gradient(90deg,var(--ink) 0 18px,var(--cream) 18px 36px);
+  --f-head:'Fredoka',system-ui,sans-serif;
+  --f-shout:'Creepster','Fredoka',cursive;
+  --f-body:'Poppins',system-ui,sans-serif;
+  --g:clamp(16px,4vw,48px);
+  --hard:0 6px 0 var(--ink);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  font-family:var(--f-body);font-size:18px;line-height:1.55;color:var(--cream);
+  background:var(--night);
+  background-image:
+    radial-gradient(1.5px 1.5px at 20% 30%,#fff9 50%,transparent 51%),
+    radial-gradient(1px 1px at 70% 10%,#fff8 50%,transparent 51%),
+    radial-gradient(2px 2px at 85% 60%,#fff6 50%,transparent 51%),
+    radial-gradient(1px 1px at 40% 80%,#fff7 50%,transparent 51%),
+    radial-gradient(1.5px 1.5px at 10% 70%,#fff5 50%,transparent 51%),
+    linear-gradient(180deg,#0e1f6b 0%,var(--night) 30%,var(--night-2) 100%);
+  background-size:320px 320px,260px 260px,380px 380px,300px 300px,420px 420px,100% 100%;
+  background-attachment:fixed;
+  overflow-x:hidden;min-height:100vh;
+}
+body.locked{overflow:hidden;height:100vh}
+img{display:block;max-width:100%}
+a{color:inherit}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:var(--slime);color:var(--ink)}
+.creep{font-family:var(--f-shout);font-weight:400;color:var(--slime);letter-spacing:.02em}
+
+/* ========= BOTONES ========= */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:12px 26px;
+  font-family:var(--f-head);font-weight:700;font-size:19px;text-decoration:none;
+  background:var(--slime);color:var(--ink);border:4px solid var(--ink);border-radius:999px;
+  box-shadow:var(--hard);transition:transform .12s,box-shadow .12s;
+}
+.btn:hover{transform:translateY(-2px) rotate(-1deg);box-shadow:0 8px 0 var(--ink)}
+.btn:active{transform:translateY(4px);box-shadow:0 2px 0 var(--ink)}
+.btn:focus-visible,.chip:focus-visible,.pull-tab:focus-visible,.crew-m:focus-visible,.summon:focus-visible{outline:4px solid var(--yellow);outline-offset:4px}
+.btn.light{background:var(--cream)}
+.btn.blue{background:var(--alpina);color:#fff}
+.btn.orange{background:var(--orange)}
+.btn.small{min-height:46px;font-size:16px;padding:8px 18px}
+
+/* ========= CAPAS FX ========= */
+#fx{position:fixed;inset:0;width:100%;height:100%;z-index:300;pointer-events:none}
+.toast{
+  position:fixed;left:50%;bottom:18px;z-index:250;transform:translate(-50%,160%);
+  width:min(440px,calc(100% - 32px));padding:14px 18px 14px 70px;min-height:74px;
+  background:var(--paper);color:var(--ink);border:4px solid var(--ink);border-radius:22px;box-shadow:0 8px 0 var(--ink);
+  transition:transform .5s cubic-bezier(.2,1.4,.4,1);font-size:16px;
+}
+.toast.show{transform:translate(-50%,0)}
+.toast img{position:absolute;left:8px;top:50%;width:54px;height:54px;object-fit:contain;transform:translateY(-50%)}
+.toast b{display:block;font-family:var(--f-head);font-size:19px;line-height:1.2}
+
+/* ========= LA PUERTA (INTRO) ========= */
+#gate{
+  --p:0;
+  position:fixed;inset:0;z-index:200;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(14px,3vh,28px);
+  padding:24px var(--g);text-align:center;overflow:hidden;
+  background:radial-gradient(ellipse at 50% 55%,#2b1670 0%,#140b3d 55%,#07041c 100%);
+}
+#gate .moon{position:absolute;right:8%;top:6%;width:clamp(70px,14vw,130px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 35% 35%,#fffbe0,#ffe9a1 60%,#f2c95c);box-shadow:0 0 60px 10px rgba(255,233,161,.35)}
+.gate-top .whisper{font-family:var(--f-head);font-weight:600;font-size:clamp(16px,2.4vw,20px);color:var(--yellow);letter-spacing:.06em}
+.gate-top h1{font-family:var(--f-head);font-weight:700;font-size:clamp(30px,6vw,56px);line-height:1.05;margin-top:6px}
+.gate-top p{max-width:520px;margin:10px auto 0;font-size:clamp(16px,2vw,19px);opacity:.92}
+.gate-top p b{color:var(--slime)}
+.lid-wrap{position:relative;width:min(72vw,42vh,380px);aspect-ratio:1;perspective:1000px;flex:none}
+.cup-inside{
+  position:absolute;inset:3%;border-radius:50%;
+  background:radial-gradient(circle,#f4fff0 0%,#b9ff8f 30%,#4fb81a 60%,#1c3d0a 100%);
+  box-shadow:inset 0 0 40px rgba(0,0,0,.6),0 0 calc(40px + var(--p)*120px) calc(var(--p)*50px) rgba(140,255,58,.55);
+}
+.cup-inside .peek{position:absolute;display:flex;gap:6px;opacity:calc(var(--p)*1.6)}
+.cup-inside .peek i{width:16px;height:16px;border-radius:50%;background:#fff;border:3px solid var(--ink);position:relative;animation:blink 3.5s infinite}
+.cup-inside .peek i::after{content:"";position:absolute;width:6px;height:6px;border-radius:50%;background:var(--ink);left:4px;top:4px}
+@keyframes blink{0%,90%,100%{transform:scaleY(1)}94%{transform:scaleY(.1)}}
+.lid-shake{position:absolute;inset:0;animation:tremble 3.2s ease-in-out infinite;transform-style:preserve-3d}
+@keyframes tremble{0%,70%,100%{transform:rotate(0)}74%{transform:rotate(-3deg)}78%{transform:rotate(3deg)}82%{transform:rotate(-2deg)}86%{transform:rotate(2deg)}90%{transform:rotate(0)}}
+#gate.dragging .lid-shake,#gate.open .lid-shake{animation:none}
+.lid{
+  position:absolute;inset:0;transform-origin:50% 4%;
+  transform:rotateX(calc(var(--p)*112deg));
+  transition:transform .45s cubic-bezier(.2,1.3,.4,1);
+  filter:drop-shadow(0 calc(10px + var(--p)*30px) 20px rgba(0,0,0,.55));
+}
+#gate.dragging .lid{transition:none}
+.lid svg{width:100%;height:100%}
+#gate.open .lid{transform:rotateX(118deg) translateY(-20%);opacity:0;transition:transform .8s cubic-bezier(.5,0,.3,1),opacity .4s .55s}
+.pull-tab{
+  position:absolute;left:50%;bottom:-11%;transform:translateX(-50%);
+  width:clamp(92px,26%,120px);height:clamp(64px,19%,84px);touch-action:none;
+  background:var(--silver);border:4px solid var(--ink);border-radius:18px 18px 40px 40px;
+  box-shadow:0 6px 0 var(--ink);display:grid;place-items:center;
+  font-family:var(--f-head);font-weight:700;font-size:17px;color:var(--ink);
+  animation:nudge 1.6s ease-in-out infinite;
+}
+@keyframes nudge{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(-7px)}}
+#gate.dragging .pull-tab{animation:none}
+.gate-bottom{display:flex;flex-direction:column;align-items:center;gap:12px;margin-top:clamp(18px,5vh,44px)}
+.gate-bottom .hint{font-family:var(--f-head);font-weight:600;font-size:clamp(17px,2.2vw,21px)}
+#gate.open .gate-top,#gate.open .gate-bottom{opacity:0;transform:scale(.9);transition:.4s}
+.burst{position:absolute;left:50%;top:50%;width:0;height:0;pointer-events:none;z-index:5}
+.burst img{position:absolute;left:0;top:0;width:clamp(130px,30vw,260px);opacity:0;transform:translate(-50%,-50%) scale(.1)}
+#gate.open .burst img{animation:burstOut 1.1s cubic-bezier(.2,1.5,.4,1) forwards;animation-delay:var(--d)}
+@keyframes burstOut{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.1) rotate(0)}
+  30%{opacity:1}
+  100%{opacity:1;transform:translate(calc(-50% + var(--tx)),calc(-50% + var(--ty))) scale(var(--s)) rotate(var(--r))}
+}
+.pow{position:absolute;font-family:var(--f-shout);font-size:clamp(34px,7vw,70px);color:var(--yellow);-webkit-text-stroke:2px var(--ink);text-shadow:4px 4px 0 var(--ink);opacity:0;transform:scale(0) rotate(var(--r));white-space:nowrap}
+#gate.open .pow{animation:pow .7s cubic-bezier(.2,1.8,.4,1) forwards;animation-delay:var(--d)}
+@keyframes pow{to{opacity:1;transform:scale(1) rotate(var(--r))}}
+#gate.gone{opacity:0;visibility:hidden;transition:opacity .8s ease,visibility 0s linear .8s}
+
+/* ========= CABECERA ========= */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:10px;
+  padding:10px var(--g);background:linear-gradient(180deg,rgba(14,31,107,.95),rgba(14,31,107,0));
+}
+.brand{font-family:var(--f-head);font-weight:700;font-style:italic;font-size:20px;background:var(--alpina);color:#fff;padding:4px 16px;border-radius:999px;border:3px solid #fff;text-decoration:none}
+.head-r{display:flex;align-items:center;gap:8px}
+.brand-logo{display:inline-flex;align-items:center;min-height:44px}
+.brand-logo img{height:46px;width:auto;filter:drop-shadow(0 3px 0 var(--ink))}
+.brand-logo.foot img{height:64px;margin:0 auto}
+.gate-logo{height:44px;width:auto;margin:0 auto 10px;filter:drop-shadow(0 3px 0 var(--ink))}
+@media (max-height:700px){.gate-logo{display:none}}
+.prize-teasers{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px;text-align:left}
+.prize-teasers div{background:rgba(255,255,255,.06);border:3px solid rgba(246,239,230,.25);border-radius:20px;padding:16px;font-size:16px}
+.prize-teasers span{font-size:34px;display:block;line-height:1.2}
+.prize-teasers b{display:block;font-family:var(--f-head);font-size:20px;color:var(--yellow)}
+.unlock-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}
+.unlock-item{background:#fff;border:3px solid var(--ink);border-radius:20px;padding:16px;display:flex;flex-direction:column;gap:8px;align-items:flex-start}
+.unlock-item .ic{font-size:36px;line-height:1}
+.unlock-item b{font-family:var(--f-head);font-size:20px;line-height:1.15}
+.unlock-item p{font-size:15px}
+.unlock-item .btn{margin-top:auto}
+.unlock-item .btn[aria-disabled]{background:#cfd4d9;color:var(--ink)}
+#prize-open #pact-form{margin-top:30px}
+.draw-note{margin-top:14px;font-weight:600;color:var(--alpina)}
+.mini-seals{display:flex;gap:5px;align-items:center;padding:0 12px;min-height:44px;border-radius:999px;background:rgba(11,6,48,.6);border:2px solid rgba(246,239,230,.3);text-decoration:none}
+.mini-seals i{width:14px;height:14px;border-radius:50%;border:2px solid var(--cream);opacity:.5;transition:.4s}
+.mini-seals i.on{opacity:1;background:var(--c);border-color:var(--c);box-shadow:0 0 10px var(--c)}
+.mini-seals span{font-family:var(--f-head);font-weight:600;font-size:14px;margin-left:4px}
+.sound-toggle{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px;border-radius:999px;background:rgba(11,6,48,.6);border:2px solid rgba(246,239,230,.3);font-family:var(--f-head);font-weight:600;font-size:14px}
+.sound-toggle .ic{font-size:18px}
+
+/* ========= HERO ========= */
+.hero{position:relative;min-height:100svh;padding:100px var(--g) 70px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;overflow:hidden}
+.hero .moon{position:absolute;left:50%;top:14%;width:min(70vw,520px);aspect-ratio:1;transform:translateX(-50%);border-radius:50%;background:radial-gradient(circle at 40% 35%,rgba(255,251,224,.22),rgba(255,233,161,.08) 55%,transparent 70%);pointer-events:none}
+.bat{position:absolute;width:54px;opacity:.85;animation:fly var(--t,14s) linear infinite;animation-delay:var(--d,0s);top:var(--y,20%);left:-80px}
+.bat svg{animation:flap .25s ease-in-out infinite alternate}
+@keyframes fly{0%{transform:translate(0,0)}25%{transform:translate(30vw,-30px)}50%{transform:translate(60vw,20px)}75%{transform:translate(90vw,-20px)}100%{transform:translate(calc(100vw + 160px),0)}}
+@keyframes flap{from{transform:scaleY(1)}to{transform:scaleY(.55)}}
+.eyebrow{display:inline-block;font-family:var(--f-head);font-weight:600;font-size:15px;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--yellow);padding:6px 16px;border-radius:999px;border:2px solid var(--yellow);transform:rotate(-2deg)}
+.title{margin-top:18px;line-height:.95;position:relative}
+.title .t1{display:block;font-family:var(--f-head);font-weight:700;font-size:clamp(26px,5vw,52px);color:#fff;text-shadow:0 4px 0 var(--ink)}
+.title .t2{
+  display:block;font-family:var(--f-shout);font-size:clamp(58px,13vw,170px);line-height:.95;letter-spacing:.02em;
+  background:var(--silver);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(4px 0 0 var(--ink)) drop-shadow(-4px 0 0 var(--ink)) drop-shadow(0 6px 0 var(--ink)) drop-shadow(0 -3px 0 var(--ink)) drop-shadow(0 0 30px rgba(140,255,58,.45));
+  animation:shine 6s linear infinite;text-shadow:none;
+}
+@keyframes shine{to{background-position:200% 0}}
+.lead{max-width:640px;margin:20px auto 0;font-size:clamp(18px,2.1vw,21px)}
+.lead b{color:var(--slime)}
+.crew{display:flex;justify-content:center;align-items:flex-end;gap:clamp(6px,3vw,40px);margin-top:26px;width:100%;max-width:980px}
+.crew-m{position:relative;flex:1;max-width:260px;display:flex;flex-direction:column;align-items:center;gap:6px;touch-action:manipulation}
+.crew-m img{width:100%;height:clamp(120px,24vw,240px);object-fit:contain;animation:bob 3s ease-in-out infinite;animation-delay:var(--d,0s);transition:transform .2s}
+.crew-m:hover img{transform:scale(1.05) rotate(-3deg)}
+.crew-m.squish img{animation:squish .5s cubic-bezier(.2,1.6,.4,1)}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)}}
+@keyframes squish{0%{transform:scale(1)}30%{transform:scale(1.2,.8)}60%{transform:scale(.9,1.12)}100%{transform:scale(1)}}
+.crew-m .nm{font-family:var(--f-head);font-weight:700;font-size:clamp(14px,1.8vw,18px);background:var(--c);color:var(--ink);padding:2px 12px;border-radius:999px;border:3px solid var(--ink)}
+.say{
+  position:absolute;bottom:calc(100% - 10px);left:50%;z-index:3;transform:translateX(-50%) scale(0);transform-origin:50% 100%;
+  width:max-content;max-width:220px;padding:10px 14px;background:#fff;color:var(--ink);border:3px solid var(--ink);border-radius:18px;
+  font-family:var(--f-head);font-weight:600;font-size:16px;line-height:1.25;transition:transform .3s cubic-bezier(.2,1.6,.4,1);pointer-events:none;
+}
+.say::after{content:"";position:absolute;left:50%;top:100%;border:10px solid transparent;border-top-color:var(--ink);transform:translateX(-50%)}
+.say.show{transform:translateX(-50%) scale(1)}
+.tap-note{margin-top:6px;font-size:14px;opacity:.75}
+.hero .cta{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:26px}
+
+/* ========= MANIFIESTO (cinta) ========= */
+.tape{position:relative;z-index:2;background:var(--ink);border-top:10px solid transparent;border-bottom:10px solid transparent;border-image:var(--stripes) 10;transform:rotate(-1.5deg);margin:10px -20px;overflow:hidden}
+.tape-track{display:flex;width:max-content;animation:marquee 38s linear infinite}
+.tape-track span{font-family:var(--f-head);font-weight:600;font-size:clamp(18px,2.2vw,24px);padding:14px 0;white-space:nowrap}
+.tape-track span em{font-style:normal;color:var(--slime);margin:0 18px}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* ========= SECCIONES ========= */
+section{position:relative;padding:clamp(70px,10vw,120px) var(--g)}
+.wrap{max-width:1160px;margin:0 auto}
+.drip{position:absolute;left:0;top:-1px;width:100%;height:60px;pointer-events:none}
+.sec-head{text-align:center;max-width:760px;margin:0 auto clamp(34px,5vw,60px)}
+.sec-head .kick{display:inline-block;font-family:var(--f-head);font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;background:var(--yellow);color:var(--ink);padding:4px 14px;border-radius:999px;border:3px solid var(--ink);transform:rotate(1.5deg)}
+h2{font-family:var(--f-head);font-weight:700;font-size:clamp(36px,6vw,68px);line-height:1.02;margin-top:14px;color:#fff;text-shadow:0 5px 0 var(--ink)}
+h2 .creep{font-size:1.12em;text-shadow:0 5px 0 var(--ink)}
+.sec-head p{margin-top:14px;font-size:clamp(18px,2vw,20px);opacity:.92}
+.reveal{opacity:0;transform:translateY(40px) scale(.97);transition:opacity .8s ease,transform .8s cubic-bezier(.2,1.2,.4,1)}
+.reveal.in{opacity:1;transform:none}
+
+/* Historia en viñetas */
+.comics{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.panel{
+  background:var(--paper);color:var(--ink);border:4px solid var(--ink);border-radius:26px;box-shadow:10px 10px 0 var(--ink);
+  padding:26px 24px;position:relative;
+}
+.comics .panel:nth-child(1){transform:rotate(-1.5deg)}
+.comics .panel:nth-child(2){transform:rotate(1deg);margin-top:26px}
+.comics .panel:nth-child(3){transform:rotate(-.6deg)}
+.comics .reveal.in:nth-child(1){transform:rotate(-1.5deg)}
+.comics .reveal.in:nth-child(2){transform:rotate(1deg)}
+.comics .reveal.in:nth-child(3){transform:rotate(-.6deg)}
+.panel .cap{display:inline-block;font-family:var(--f-head);font-weight:700;font-size:14px;letter-spacing:.06em;text-transform:uppercase;background:var(--ink);color:var(--yellow);padding:4px 12px;border-radius:8px;margin-bottom:10px}
+.panel h3{font-family:var(--f-head);font-weight:700;font-size:26px;line-height:1.1;margin-bottom:8px}
+.panel p{font-size:17px}
+.panel .art{height:150px;display:grid;place-items:center;margin:4px 0 10px}
+.panel .art svg{height:100%;width:auto}
+.panel .art img{height:150px;width:auto;object-fit:contain}
+.fine{margin-top:26px;text-align:center;font-size:15px;opacity:.75;font-style:italic}
+
+/* Bestiario */
+.beasts{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.beast{background:var(--paper);color:var(--ink);border:4px solid var(--ink);border-radius:30px;box-shadow:10px 10px 0 var(--ink);overflow:visible;display:flex;flex-direction:column}
+.stage{
+  position:relative;height:290px;margin:14px 14px 0;border-radius:22px;border:4px solid var(--ink);
+  background:radial-gradient(circle at 50% 60%,color-mix(in srgb,var(--c) 45%,#22105a),#140b3d 75%);
+}
+.stage::before{content:"";position:absolute;left:50%;bottom:14px;width:70%;height:16px;transform:translateX(-50%);border-radius:50%;background:rgba(0,0,0,.35)}
+.beast-img{position:absolute;left:50%;bottom:12px;max-width:88%;max-height:90%;transform:translateX(-50%) scale(.15);opacity:0;transform-origin:50% 100%}
+.beast.freed .beast-img{animation:popOut .8s cubic-bezier(.2,1.6,.4,1) forwards,bob2 3s ease-in-out .8s infinite}
+@keyframes popOut{0%{opacity:0;transform:translateX(-50%) scale(.15)}100%{opacity:1;transform:translateX(-50%) scale(1)}}
+@keyframes bob2{0%,100%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}50%{opacity:1;transform:translateX(-50%) translateY(-10px) scale(1)}}
+.beast .lid{position:absolute;inset:auto;left:50%;top:50%;width:74%;height:auto;aspect-ratio:1;transform:translate(-50%,-50%);transform-origin:50% 50%;filter:drop-shadow(0 10px 10px rgba(0,0,0,.5));transition:none}
+.beast.shake .lid{animation:lidShake .5s}
+.beast[data-n="2"].shake .lid{animation:lidShake2 .6s}
+@keyframes lidShake{25%{transform:translate(-50%,-50%) rotate(-6deg)}50%{transform:translate(-50%,-54%) rotate(5deg)}75%{transform:translate(-50%,-50%) rotate(-3deg)}}
+@keyframes lidShake2{20%{transform:translate(-48%,-58%) rotate(-12deg) scale(1.04)}40%{transform:translate(-52%,-46%) rotate(10deg)}60%{transform:translate(-49%,-56%) rotate(-8deg) scale(1.05)}80%{transform:translate(-51%,-50%) rotate(5deg)}}
+.beast.freed .lid{animation:lidFly .7s cubic-bezier(.5,0,.6,1) forwards}
+@keyframes lidFly{to{transform:translate(40%,-160%) rotate(220deg) scale(.5);opacity:0}}
+.no-abrir{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-12deg);font-family:var(--f-head);font-weight:700;font-size:18px;background:var(--yellow);color:var(--ink);padding:4px 12px;border:3px solid var(--ink);border-radius:8px;white-space:nowrap}
+.beast.freed .no-abrir{display:none}
+.stage .shout{position:absolute;right:6px;top:10px;font-family:var(--f-shout);font-size:40px;color:var(--yellow);-webkit-text-stroke:1.5px var(--ink);text-shadow:3px 3px 0 var(--ink);transform:rotate(12deg) scale(0);transition:transform .4s cubic-bezier(.2,1.8,.4,1) .3s}
+.beast.freed .shout{transform:rotate(12deg) scale(1)}
+.stage .bubble{position:absolute;left:12px;top:12px;max-width:62%;background:#fff;border:3px solid var(--ink);border-radius:14px;padding:6px 10px;font-family:var(--f-head);font-weight:600;font-size:15px;line-height:1.2}
+.stage .bubble:empty{display:none}
+.beast-body{padding:18px 22px 24px;display:flex;flex-direction:column;gap:10px;flex:1}
+.beast .tag{align-self:flex-start;font-family:var(--f-head);font-weight:700;font-size:14px;background:var(--c);color:var(--ink);padding:2px 12px;border-radius:999px;border:3px solid var(--ink)}
+.beast h3{font-family:var(--f-head);font-weight:700;font-size:32px;line-height:1}
+.beast .known{display:none}
+.beast.freed .known{display:inline}
+.beast.freed .unknown{display:none}
+.beast .teaser{font-size:16px;opacity:.8}
+.beast.freed .teaser{display:none}
+.summon{
+  margin-top:auto;display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:56px;padding:10px 18px;
+  background:var(--ink);color:#fff;border-radius:18px;font-family:var(--f-head);font-weight:600;font-size:17px;text-align:left;
+  box-shadow:0 5px 0 color-mix(in srgb,var(--c) 70%,#000);transition:transform .1s;
+}
+.summon:active{transform:translateY(3px)}
+.summon b{color:var(--c);font-weight:700}
+.dots{display:flex;gap:5px;flex:none}
+.dots i{width:14px;height:14px;border-radius:50%;border:2px solid #fff;transition:.2s}
+.dots i.on{background:var(--c);border-color:var(--c);transform:scale(1.2)}
+.dossier p{font-size:16px}
+.stats{display:grid;gap:6px;margin-top:10px;font-size:15px}
+.stats div{display:flex;justify-content:space-between;gap:10px;border-bottom:2px dashed rgba(11,6,48,.2);padding-bottom:5px}
+.stats dt{font-weight:700}
+.stats dd{text-align:right}
+.meter{display:inline-flex;gap:3px}
+.meter i{width:13px;height:13px;border-radius:50%;background:rgba(11,6,48,.15);border:2px solid var(--ink)}
+.meter i.on{background:var(--c)}
+.quote{margin-top:10px;font-family:var(--f-head);font-weight:700;font-size:19px;color:var(--c);-webkit-text-stroke:.5px var(--ink)}
+
+/* Pasaporte de sellos */
+.passport{
+  background:var(--paper);color:var(--ink);border-radius:30px;padding:clamp(22px,4vw,44px);position:relative;
+  border:14px solid transparent;border-image:var(--stripes) 14;box-shadow:12px 12px 0 rgba(0,0,0,.35);
+}
+.passport h3{font-family:var(--f-head);font-weight:700;font-size:clamp(26px,3.4vw,36px);text-align:center}
+.passport .sub{text-align:center;opacity:.8;margin-top:4px}
+.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(10px,3vw,30px);margin:28px 0 20px}
+.slot{position:relative;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.slot .ring{position:relative;width:100%;max-width:190px;aspect-ratio:1;border-radius:50%;border:4px dashed rgba(11,6,48,.35);display:grid;place-items:center;background:#fff}
+.slot .ring img{width:78%;height:78%;object-fit:contain;filter:brightness(0) opacity(.14);transition:filter .6s}
+.slot.got .ring{border:6px solid var(--c);background:color-mix(in srgb,var(--c) 18%,#fff);box-shadow:0 0 0 4px var(--ink)}
+.slot.got .ring img{filter:none}
+.slot .ink{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) rotate(-14deg) scale(0);font-family:var(--f-shout);font-size:clamp(20px,3.2vw,34px);color:var(--c);border:4px solid var(--c);border-radius:10px;padding:0 10px;background:rgba(255,250,242,.85);white-space:nowrap;opacity:0}
+.slot.got .ink{opacity:1;transform:translate(-50%,-50%) rotate(-14deg) scale(1)}
+.slot.stamped .ink{animation:stamp .55s cubic-bezier(.3,1.6,.5,1)}
+.slot.stamped .ring{animation:thud .55s}
+@keyframes stamp{0%{opacity:0;transform:translate(-50%,-50%) rotate(-30deg) scale(3)}60%{opacity:1;transform:translate(-50%,-50%) rotate(-10deg) scale(.9)}100%{opacity:1;transform:translate(-50%,-50%) rotate(-14deg) scale(1)}}
+@keyframes thud{50%{transform:scale(.92)}}
+.slot .lbl{font-family:var(--f-head);font-weight:700;font-size:clamp(15px,1.8vw,19px)}
+.slot .st{font-size:14px;opacity:.7}
+.progress{display:flex;align-items:center;gap:14px;max-width:560px;margin:0 auto}
+.bar{flex:1;height:22px;border-radius:999px;border:4px solid var(--ink);background:#fff;overflow:hidden}
+.bar i{display:block;height:100%;width:calc(var(--v,0)*100%);background:repeating-linear-gradient(45deg,var(--slime) 0 12px,var(--slime-d) 12px 24px);transition:width 1s cubic-bezier(.2,1.2,.4,1)}
+.progress b{font-family:var(--f-head);font-size:22px;white-space:nowrap}
+.missing{text-align:center;margin-top:14px;font-size:16px}
+.how{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:30px}
+.how div{background:#fff;border:3px solid var(--ink);border-radius:18px;padding:14px;text-align:center;font-size:15px}
+.how b{display:block;font-family:var(--f-head);font-size:34px;line-height:1;color:var(--alpina)}
+details.code-box{margin-top:26px;border:3px solid var(--ink);border-radius:18px;background:#fff}
+details.code-box summary{cursor:pointer;padding:14px 18px;font-family:var(--f-head);font-weight:600;font-size:17px;list-style:none;min-height:52px}
+details.code-box summary::before{content:"🔑 "}
+details.code-box[open] summary{border-bottom:3px dashed rgba(11,6,48,.2)}
+.code-form{padding:18px}
+.chips{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.chips input{position:absolute;opacity:0;pointer-events:none}
+.chip{display:flex;flex-direction:column;align-items:center;gap:4px;padding:8px 4px;border:3px solid var(--ink);border-radius:14px;cursor:pointer;font-family:var(--f-head);font-weight:600;font-size:14px;min-height:44px;transition:.2s;text-align:center}
+.chip img{width:44px;height:44px;object-fit:contain}
+.chips input:checked+.chip{background:var(--c);box-shadow:0 4px 0 var(--ink);transform:translateY(-2px)}
+.chips input:focus-visible+.chip{outline:4px solid var(--yellow);outline-offset:3px}
+.field-label{display:block;font-family:var(--f-head);font-weight:600;font-size:16px;margin:14px 0 6px}
+.input{width:100%;min-height:54px;border:3px solid var(--ink);border-radius:14px;padding:10px 14px;font:inherit;font-size:18px;color:var(--ink);background:#fff;outline:none}
+.input:focus{box-shadow:0 0 0 4px var(--slime)}
+.input.code{font-family:var(--f-head);font-weight:700;font-size:24px;letter-spacing:.35em;text-transform:uppercase;text-align:center}
+.input.bad{border-color:var(--jam);animation:no .4s}
+@keyframes no{25%,75%{transform:translateX(-8px)}50%{transform:translateX(8px)}}
+.msg{min-height:1.5em;margin-top:10px;font-weight:600;font-size:16px}
+.msg.ok{color:#2f8a0c}
+.msg.err{color:var(--jam)}
+
+/* Villano + cuenta regresiva */
+.villain{display:grid;grid-template-columns:auto 1fr;gap:clamp(16px,4vw,40px);align-items:center;margin-top:clamp(40px,6vw,70px)}
+.villain svg{width:clamp(130px,20vw,200px);animation:grumble 4s ease-in-out infinite}
+@keyframes grumble{0%,100%{transform:rotate(-4deg)}50%{transform:rotate(4deg) translateY(-6px)}}
+.villain h3{font-family:var(--f-head);font-weight:700;font-size:clamp(24px,3vw,34px);line-height:1.1}
+.villain h3 .creep{color:#c9c4bd}
+.villain p{opacity:.9;margin-top:6px}
+.countdown{display:flex;gap:clamp(8px,2vw,16px);margin-top:16px;flex-wrap:wrap}
+.cd{min-width:clamp(68px,12vw,100px);padding:10px 6px;text-align:center;background:var(--paper);color:var(--ink);border:4px solid var(--ink);border-radius:18px;box-shadow:0 5px 0 var(--ink)}
+.cd b{display:block;font-family:var(--f-head);font-weight:700;font-size:clamp(30px,5vw,46px);line-height:1}
+.cd span{font-size:13px;font-weight:600}
+
+/* Premio */
+.prize{margin-top:clamp(40px,6vw,70px)}
+.locked-box{text-align:center;padding:30px 20px;border:4px dashed rgba(246,239,230,.4);border-radius:30px}
+.locked-box .pad{font-size:54px;animation:bob 2.4s ease-in-out infinite;display:inline-block}
+.locked-box h3{font-family:var(--f-head);font-weight:700;font-size:clamp(24px,3vw,32px)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 16px}
+.check{display:flex;gap:10px;align-items:flex-start;margin-top:14px;font-size:15px;cursor:pointer}
+.check input{width:22px;height:22px;margin-top:2px;flex:none;accent-color:var(--alpina)}
+.cert{text-align:center;padding:10px}
+.cert .seal-row{display:flex;justify-content:center;gap:10px;margin:14px 0}
+.cert .seal-row img{width:70px;height:70px;object-fit:contain}
+.cert h3{font-family:var(--f-shout);font-weight:400;font-size:clamp(34px,5vw,54px);color:var(--alpina);line-height:1}
+.cert .who{font-family:var(--f-head);font-weight:700;font-size:clamp(26px,4vw,40px);border-bottom:4px solid var(--ink);display:inline-block;padding:0 20px;margin:8px 0}
+
+/* Reto LickArt */
+.lick{display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,5vw,60px);align-items:center}
+.hashtag{font-family:var(--f-shout);font-size:clamp(46px,7vw,86px);line-height:1;color:var(--slime);text-shadow:0 5px 0 var(--ink);word-break:break-word}
+.steps{list-style:none;counter-reset:s;display:grid;gap:14px;margin:20px 0 24px}
+.steps li{counter-increment:s;display:grid;grid-template-columns:52px 1fr;gap:14px;align-items:center;font-size:17px}
+.steps li::before{content:counter(s);display:grid;place-items:center;width:52px;height:52px;border-radius:46% 54% 40% 60%;background:var(--c,var(--slime));color:var(--ink);border:3px solid var(--ink);font-family:var(--f-head);font-weight:700;font-size:24px}
+.steps li:nth-child(2){--c:var(--yellow)}
+.steps li:nth-child(3){--c:var(--orange)}
+.steps li:nth-child(4){--c:var(--purple)}
+.steps b{font-family:var(--f-head);font-size:19px}
+.board{background:var(--paper);color:var(--ink);border:4px solid var(--ink);border-radius:30px;box-shadow:10px 10px 0 var(--ink);padding:18px;text-align:center}
+.board h3{font-family:var(--f-head);font-weight:700;font-size:24px}
+.board p{font-size:15px;opacity:.8}
+.canvas-wrap{position:relative;width:min(100%,420px);margin:14px auto;aspect-ratio:1}
+#lick-canvas{width:100%;height:100%;touch-action:none;cursor:crosshair;display:block;border-radius:50%}
+.board .tools{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.safe{margin-top:14px;font-size:14px;opacity:.8}
+
+/* Filtro AR */
+.ar{display:grid;grid-template-columns:auto 1fr;gap:clamp(26px,6vw,80px);align-items:center}
+.phone{position:relative;width:clamp(220px,28vw,290px);aspect-ratio:9/18.5;border:10px solid var(--ink);border-radius:42px;background:#000;box-shadow:12px 12px 0 rgba(0,0,0,.4),0 0 0 3px #3a2a80;overflow:hidden;margin:0 auto}
+.phone::before{content:"";position:absolute;top:10px;left:50%;width:34%;height:20px;border-radius:999px;background:var(--ink);transform:translateX(-50%);z-index:6}
+.screen{position:absolute;inset:0;background:linear-gradient(180deg,#3b2a8a,#1a1450)}
+.screen .face{position:absolute;left:0;right:0;bottom:0;width:100%}
+.screen .mk{opacity:0;transition:opacity .4s}
+.phone.on .mk{opacity:1}
+.screen .ar-m{position:absolute;right:-4%;bottom:26%;width:52%;transform:scale(0) rotate(-20deg);transition:transform .6s cubic-bezier(.2,1.6,.4,1)}
+.phone.on .ar-m{transform:scale(1) rotate(6deg)}
+.screen .ar-label{position:absolute;top:44px;left:50%;transform:translateX(-50%);white-space:nowrap;font-family:var(--f-head);font-weight:700;font-size:14px;background:rgba(11,6,48,.7);padding:4px 12px;border-radius:999px;opacity:0;transition:opacity .4s}
+.phone.on .ar-label{opacity:1}
+.static{position:absolute;inset:0;z-index:5;opacity:0;pointer-events:none;background:
+  repeating-linear-gradient(0deg,rgba(255,255,255,.18) 0 2px,rgba(0,0,0,.25) 2px 4px),
+  linear-gradient(90deg,#c9ced4,#6f757c,#e9ecef,#8a9097);mix-blend-mode:hard-light}
+.phone.glitch .static{animation:glitch .7s steps(7)}
+@keyframes glitch{0%{opacity:.9;transform:translateX(-6px)}20%{opacity:.4;transform:translateX(8px)}40%{opacity:.95;transform:translateY(4px)}60%{opacity:.3}80%{opacity:.8;transform:translateX(-3px)}100%{opacity:0}}
+.rec{position:absolute;bottom:18px;left:50%;width:56px;height:56px;border-radius:50%;border:4px solid #fff;transform:translateX(-50%);z-index:4}
+.rec::after{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--jam)}
+.ar h3{font-family:var(--f-head);font-weight:700;font-size:clamp(30px,4vw,46px);line-height:1.05}
+.ar .btns{display:flex;flex-wrap:wrap;gap:12px;margin-top:22px}
+
+/* Más contenido */
+.more{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.more .panel{display:flex;flex-direction:column;gap:8px}
+.more .panel .soon{align-self:flex-start;font-family:var(--f-head);font-weight:700;font-size:13px;background:var(--slime);border:3px solid var(--ink);border-radius:999px;padding:2px 10px}
+.more .panel .btn{align-self:flex-start;margin-top:auto}
+
+footer{padding:50px var(--g) 110px;text-align:center;background:#07041c;border-top:10px solid transparent;border-image:var(--stripes) 10;font-size:15px}
+footer nav{display:flex;flex-wrap:wrap;gap:6px 22px;justify-content:center;margin:16px 0}
+footer nav a{min-height:44px;display:inline-flex;align-items:center;font-weight:600}
+footer .legal{max-width:760px;margin:0 auto;opacity:.7;font-size:14px}
+
+/* ========= RESPONSIVE ========= */
+@media (max-width:960px){
+  .comics,.beasts{grid-template-columns:1fr;max-width:460px;margin:0 auto}
+  .comics .panel:nth-child(2){margin-top:0}
+  .lick,.ar,.more{grid-template-columns:1fr}
+  .ar{text-align:center}.ar .btns{justify-content:center}
+}
+@media (max-width:600px){
+  body{font-size:17px}
+  .brand{font-size:17px;padding:3px 12px}
+  .sound-toggle .lbl{display:none}
+  .mini-seals span{display:none}
+  .how,.prize-teasers,.unlock-grid{grid-template-columns:1fr}
+  .brand-logo img{height:40px}
+  .form-grid{grid-template-columns:1fr}
+  .villain{grid-template-columns:1fr;text-align:center;justify-items:center}
+  .countdown{justify-content:center}
+  .stage{height:260px}
+  .say{max-width:170px;font-size:14px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.15s!important}
+  .reveal{opacity:1;transform:none}
+  .tape-track{animation:none}
+}
+</style>
+</head>
+<body class="locked">
+
+<!-- ================= SVG REUTILIZABLES ================= -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="crinkle" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.03" numOctaves="3" seed="4" result="n"/>
+      <feDiffuseLighting in="n" surfaceScale="3.2" diffuseConstant="1.15" lighting-color="#ffffff" result="light">
+        <feDistantLight azimuth="225" elevation="52"/>
+      </feDiffuseLighting>
+      <feComposite in="light" in2="SourceAlpha" operator="in" result="lit"/>
+      <feBlend in="SourceGraphic" in2="lit" mode="multiply"/>
+    </filter>
+    <radialGradient id="foilg" cx="38%" cy="32%" r="75%">
+      <stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#d9dde1"/><stop offset="1" stop-color="#9aa0a8"/>
+    </radialGradient>
+    <radialGradient id="rimg" cx="50%" cy="50%" r="50%">
+      <stop offset=".9" stop-color="#b9bec4"/><stop offset="1" stop-color="#6d737a"/>
+    </radialGradient>
+    <path id="r1" d="M0 -13 V13 M0 -13 L9 -5 M0 -3 L9 -11"/>
+    <path id="r2" d="M0 -13 V13 M0 1 L-8 -9 M0 1 L8 -9"/>
+    <path id="r3" d="M0 -13 L8 -5 L0 3 L-8 -5 Z M0 3 L-8 13 M0 3 L8 13"/>
+    <path id="r4" d="M-6 -13 V13 M-6 -13 L6 -4 L-6 4 M-6 4 L6 13"/>
+    <symbol id="foil-lid" viewBox="0 0 400 400">
+      <circle cx="200" cy="200" r="198" fill="url(#rimg)" stroke="#0b0630" stroke-width="5"/>
+      <circle cx="200" cy="200" r="182" fill="url(#foilg)" filter="url(#crinkle)"/>
+      <circle cx="200" cy="200" r="150" fill="none" stroke="#6d737a" stroke-width="2" stroke-dasharray="3 9"/>
+      <g fill="none" stroke="#5d636b" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+        <use href="#r1" transform="rotate(0 200 200) translate(200 38)"/>
+        <use href="#r2" transform="rotate(30 200 200) translate(200 38)"/>
+        <use href="#r3" transform="rotate(60 200 200) translate(200 38)"/>
+        <use href="#r4" transform="rotate(90 200 200) translate(200 38)"/>
+        <use href="#r2" transform="rotate(120 200 200) translate(200 38)"/>
+        <use href="#r1" transform="rotate(150 200 200) translate(200 38)"/>
+        <use href="#r3" transform="rotate(180 200 200) translate(200 38)"/>
+        <use href="#r4" transform="rotate(210 200 200) translate(200 38)"/>
+        <use href="#r1" transform="rotate(240 200 200) translate(200 38)"/>
+        <use href="#r3" transform="rotate(270 200 200) translate(200 38)"/>
+        <use href="#r2" transform="rotate(300 200 200) translate(200 38)"/>
+        <use href="#r4" transform="rotate(330 200 200) translate(200 38)"/>
+        <path d="M168 262 V190 A32 32 0 0 1 232 190 V262 Z" stroke-width="5"/>
+        <path d="M200 262 V175" stroke-width="3"/>
+        <circle cx="190" cy="222" r="3" fill="#5d636b"/><circle cx="210" cy="222" r="3" fill="#5d636b"/>
+      </g>
+    </symbol>
+    <symbol id="tapa-seca" viewBox="0 0 200 200">
+      <circle cx="100" cy="100" r="84" fill="#9d9892" stroke="#0b0630" stroke-width="6"/>
+      <circle cx="100" cy="100" r="74" fill="#b3aea7" filter="url(#crinkle)"/>
+      <path d="M40 70 L60 80 M150 60 L138 76 M60 150 L78 140 M140 150 L126 138" stroke="#6c6760" stroke-width="3" stroke-linecap="round"/>
+      <path d="M54 68 L90 82 M146 68 L110 82" stroke="#0b0630" stroke-width="8" stroke-linecap="round"/>
+      <ellipse cx="76" cy="96" rx="15" ry="11" fill="#fff" stroke="#0b0630" stroke-width="4"/>
+      <ellipse cx="124" cy="96" rx="15" ry="11" fill="#fff" stroke="#0b0630" stroke-width="4"/>
+      <circle cx="80" cy="98" r="5" fill="#0b0630"/><circle cx="120" cy="98" r="5" fill="#0b0630"/>
+      <ellipse cx="100" cy="138" rx="17" ry="13" fill="#0b0630"/>
+      <rect x="112" y="128" width="72" height="12" rx="6" transform="rotate(28 112 128)" fill="#ff7a1a" stroke="#0b0630" stroke-width="4"/>
+    </symbol>
+    <symbol id="bat" viewBox="0 0 100 50">
+      <path d="M50 18 C46 10 44 8 42 14 C30 4 14 6 0 18 C12 18 18 26 20 34 C26 26 34 28 38 34 C42 30 46 30 50 36 C54 30 58 30 62 34 C66 28 74 26 80 34 C82 26 88 18 100 18 C86 6 70 4 58 14 C56 8 54 10 50 18 Z" fill="#0b0630"/>
+      <circle cx="46" cy="20" r="2" fill="#8cff3a"/><circle cx="54" cy="20" r="2" fill="#8cff3a"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ================= LA PUERTA PLATEADA ================= -->
+<div id="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
+  <div class="moon" aria-hidden="true"></div>
+  <div class="gate-top">
+    <img class="gate-logo" src="img/alpina-logo.png" alt="Alpina" width="78" height="44">
+    <p class="whisper">Psst… ¿escuchaste eso?</p>
+    <h1 id="gate-title">Encontraste la Puerta Plateada</h1>
+    <p id="gate-source">Algo se mueve detrás del aluminio. Algo con <b>hambre de travesuras</b>.</p>
+  </div>
+  <div class="lid-wrap">
+    <div class="cup-inside" aria-hidden="true">
+      <span class="peek" style="left:28%;top:40%"><i></i><i></i></span>
+      <span class="peek" style="left:56%;top:30%"><i></i><i></i></span>
+      <span class="peek" style="left:46%;top:60%"><i></i><i></i></span>
+    </div>
+    <div class="lid-shake">
+      <div class="lid" id="gate-lid">
+        <svg aria-hidden="true"><use href="#foil-lid"/></svg>
+        <button class="pull-tab" id="gate-tab" aria-label="Jala la pestaña para abrir la Puerta Plateada">¡Jálame!</button>
+      </div>
+    </div>
+    <div class="burst" id="burst" aria-hidden="true"></div>
+  </div>
+  <div class="gate-bottom">
+    <p class="hint">Jala la pestaña para abrir la puerta 👆</p>
+    <button class="sound-toggle" data-sound aria-pressed="true"><span class="ic" aria-hidden="true">🔊</span><span class="lbl">Sonido: sí</span></button>
+  </div>
+</div>
+
+<canvas id="fx" aria-hidden="true"></canvas>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<header>
+  <a class="brand-logo" href="#inicio"><img src="img/alpina-logo.png" alt="Alpina, ir al inicio" width="82" height="46"></a>
+  <div class="head-r">
+    <a class="mini-seals" href="#sellos" id="mini-seals" aria-label="Mis sellos: 0 de 3">
+      <i data-k="bonyurt" style="--c:var(--c-bon)"></i><i data-k="alpinette" style="--c:var(--c-alp)"></i><i data-k="yogoyogo" style="--c:var(--c-yog)"></i>
+      <span id="mini-n">0/3</span>
+    </a>
+    <button class="sound-toggle" data-sound aria-pressed="true"><span class="ic" aria-hidden="true">🔊</span><span class="lbl">Sonido: sí</span></button>
+  </div>
+</header>
+
+<main>
+  <!-- ================= HERO ================= -->
+  <section class="hero" id="inicio">
+    <div class="moon" aria-hidden="true"></div>
+    <span class="bat" style="--y:18%;--t:16s" aria-hidden="true"><svg viewBox="0 0 100 50"><use href="#bat"/></svg></span>
+    <span class="bat" style="--y:32%;--t:22s;--d:-8s;width:38px" aria-hidden="true"><svg viewBox="0 0 100 50"><use href="#bat"/></svg></span>
+    <span class="bat" style="--y:10%;--t:19s;--d:-14s;width:30px" aria-hidden="true"><svg viewBox="0 0 100 50"><use href="#bat"/></svg></span>
+
+    <span class="eyebrow">Halloween Alpina · Solo para lamedores de tapas</span>
+    <h2 class="title" aria-label="El Ritual Secreto de la Puerta Plateada"><span class="t1">El Ritual Secreto de la</span><span class="t2">Puerta Plateada</span></h2>
+    <p class="lead">¡Ups! Abriste la puerta y los <b>monstruos del sabor</b> se escaparon. Tranqui, no le diremos a nadie. 🤫 Ahora ayúdanos a juntar los <b>3 sellos</b> antes de que llegue el Monstruo de la Tapa Seca.</p>
+
+    <div class="crew" id="crew">
+      <button class="crew-m" data-k="bonyurt" style="--c:var(--c-bon);--d:0s" aria-label="Bon Yurters, tócalos para oírlos">
+        <span class="say" aria-live="polite"></span>
+        <img src="img/bonyurters.png" alt="Los Bon Yurters, monstruos de chocolate y cereal con muchos ojos y brazos">
+        <span class="nm">Bon Yurters</span>
+      </button>
+      <button class="crew-m" data-k="alpinette" style="--c:var(--c-alp);--d:-1s" aria-label="Alpinettes, tócalos para oírlos">
+        <span class="say" aria-live="polite"></span>
+        <img src="img/alpinettes.png" alt="Las Alpinettes, fantasmitas blancos con corazón de mermelada saliendo de un Alpinette">
+        <span class="nm">Alpinettes</span>
+      </button>
+      <button class="crew-m" data-k="yogoyogo" style="--c:var(--c-yog);--d:-2s" aria-label="Yogurillas, tócalas para oírlas">
+        <span class="say" aria-live="polite"></span>
+        <img src="img/yogurillas.png" alt="Las Yogurillas, criaturas cremosas de fresa, durazno y mora saliendo de un Yogo Yogo">
+        <span class="nm">Yogurillas</span>
+      </button>
+    </div>
+    <p class="tap-note">Tócalos. A ver qué dicen. 👆</p>
+    <div class="cta">
+      <a class="btn" href="#sellos">¡Junta los 3 sellos!</a>
+      <a class="btn light" href="#monstruos">Conoce a los monstruos</a>
+    </div>
+  </section>
+
+  <!-- ================= MANIFIESTO ================= -->
+  <div class="tape" aria-label="Manifiesto: Dicen que lamer la tapa es de mala educación. Nosotros creemos que lo verdaderamente aterrador es dejar que la diversión se quede atrapada detrás del aluminio. Este Halloween, retira el seguro, lame la tapa y libera tu lado mágico. El ritual ha comenzado.">
+    <div class="tape-track" aria-hidden="true">
+      <span>Dicen que lamer la tapa es de mala educación <em>✦</em> Lo verdaderamente aterrador es dejar la diversión atrapada detrás del aluminio <em>✦</em> Retira el seguro, lame la tapa y libera tu lado mágico <em>✦</em> El ritual ha comenzado <em>✦</em></span>
+      <span>Dicen que lamer la tapa es de mala educación <em>✦</em> Lo verdaderamente aterrador es dejar la diversión atrapada detrás del aluminio <em>✦</em> Retira el seguro, lame la tapa y libera tu lado mágico <em>✦</em> El ritual ha comenzado <em>✦</em></span>
+    </div>
+  </div>
+
+  <!-- ================= HISTORIA ================= -->
+  <section id="historia">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kick">Archivo secreto de Alpina</span>
+        <h2>¿Qué es el <span class="creep">Mundo Plateado</span>?</h2>
+        <p>Lo que los adultos aburridos no quieren que sepas sobre las tapas.</p>
+      </div>
+      <div class="comics">
+        <article class="panel reveal">
+          <span class="cap">Hace muuucho tiempo…</span>
+          <div class="art" aria-hidden="true"><svg viewBox="0 0 400 400"><use href="#foil-lid"/></svg></div>
+          <h3>La tapa no es solo una tapa</h3>
+          <p>Los fundadores de Alpina inventaron el sello de aluminio. ¿Para cuidar el yogurt? Sí. Pero también para <b>encerrar la magia</b> dentro del envase.</p>
+        </article>
+        <article class="panel reveal">
+          <span class="cap">Pero cada octubre…</span>
+          <div class="art" aria-hidden="true"><img src="img/alpinettes.png" alt=""></div>
+          <h3>La barrera se pone delgadita</h3>
+          <p>En Halloween, la pared entre nuestro mundo y el Mundo Plateado se vuelve finita, finita. Y cuando alguien <b>lame la tapa</b>… ¡PUM! Despiertan los monstruos del sabor.</p>
+        </article>
+        <article class="panel reveal">
+          <span class="cap">Y ojo con este…</span>
+          <div class="art" aria-hidden="true"><svg viewBox="0 0 200 200"><use href="#tapa-seca"/></svg></div>
+          <h3>El Monstruo de la Tapa Seca</h3>
+          <p>Un gruñón que quiere chuparse <b>todo el sabor</b> de la galaxia Alpina con su pitillo. Solo quien junte los 3 sellos puede detenerlo.</p>
+        </article>
+      </div>
+      <p class="fine reveal">Advertencia oficial: no digas el nombre de un monstruo tres veces seguidas. En serio. …Bueno, hazlo. Aquí abajo. 👇</p>
+    </div>
+  </section>
+
+  <!-- ================= BESTIARIO ================= -->
+  <section id="monstruos">
+    <svg class="drip" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><path fill="#8cff3a" d="M0,0 H1200 V18 Q1180,18 1172,30 Q1165,62 1152,62 Q1139,62 1136,32 Q1130,18 1100,20 Q1040,22 1030,28 Q1022,44 1012,44 Q1002,44 998,28 Q990,18 930,20 Q880,20 872,34 Q866,78 850,78 Q834,78 830,36 Q824,18 760,20 Q700,22 694,30 Q688,48 678,48 Q668,48 664,30 Q658,18 600,20 Q540,22 532,34 Q526,66 512,66 Q498,66 494,34 Q488,18 420,20 Q360,22 354,30 Q348,42 340,42 Q332,42 328,30 Q322,18 260,20 Q200,22 194,34 Q188,70 174,70 Q160,70 156,34 Q150,18 90,20 Q40,22 34,30 Q28,50 18,50 Q8,50 6,30 Q4,20 0,20 Z"/></svg>
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kick">Bestiario del sabor</span>
+        <h2>Di su nombre <span class="creep">3 veces</span></h2>
+        <p>Cada tapa esconde una criatura. Llámala tres veces y mira qué pasa. Nosotros no fuimos. 👀</p>
+      </div>
+      <div class="beasts">
+        <article class="beast reveal" data-k="bonyurt" style="--c:var(--c-bon)">
+          <div class="stage">
+            <img class="beast-img" src="img/bonyurters.png" alt="Los Bon Yurters">
+            <svg class="lid" aria-hidden="true"><use href="#foil-lid"/></svg>
+            <span class="no-abrir" aria-hidden="true">¡NO ABRIR!</span>
+            <span class="shout" aria-hidden="true">¡CRUNCH!</span>
+            <p class="bubble" aria-live="polite"></p>
+          </div>
+          <div class="beast-body">
+            <span class="tag">Vive en: Bon Yurt</span>
+            <h3><span class="unknown">¿¿¿???</span><span class="known">Bon Yurters</span></h3>
+            <p class="teaser">Criatura sin identificar. Pista: se oye un crujido raro dentro de tu Bon Yurt…</p>
+            <button class="summon" type="button">Llámalos: <b>“¡Bon Yurters!”</b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></button>
+            <div class="dossier" hidden>
+              <p>Monstruos crujientes y caóticos que salen disparados cuando destapas y lames un Bon Yurt.</p>
+              <dl class="stats">
+                <div><dt>Superpoder</dt><dd>Hacer CRUNCH tan duro que lo oye el vecino</dd></div>
+                <div><dt>Travesura</dt><dd><span class="meter" aria-label="5 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></dd></div>
+                <div><dt>Le da miedo</dt><dd>Quedarse sin cereal</dd></div>
+              </dl>
+              <p class="quote">“¡CRUNCH! ¡KAO! ¡LIBERTAAAD!”</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="beast reveal" data-k="alpinette" style="--c:var(--c-alp)">
+          <div class="stage">
+            <img class="beast-img" src="img/alpinettes.png" alt="Las Alpinettes">
+            <svg class="lid" aria-hidden="true"><use href="#foil-lid"/></svg>
+            <span class="no-abrir" aria-hidden="true">¡NO ABRIR!</span>
+            <span class="shout" aria-hidden="true">¡BUUU!</span>
+            <p class="bubble" aria-live="polite"></p>
+          </div>
+          <div class="beast-body">
+            <span class="tag">Vive en: Alpinette</span>
+            <h3><span class="unknown">¿¿¿???</span><span class="known">Alpinettes</span></h3>
+            <p class="teaser">Criatura sin identificar. Pista: flota, es elegante y huele a mermelada…</p>
+            <button class="summon" type="button">Llámalas: <b>“¡Alpinettes!”</b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></button>
+            <div class="dossier" hidden>
+              <p>Fantasmas suaves y sofisticados con un corazón líquido de mermelada. Se escapan cuando lames la tapa del Alpinette.</p>
+              <dl class="stats">
+                <div><dt>Superpoder</dt><dd>Atravesar paredes sin despeinarse</dd></div>
+                <div><dt>Travesura</dt><dd><span class="meter" aria-label="3 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></dd></div>
+                <div><dt>Le da miedo</dt><dd>Las cucharas sucias</dd></div>
+              </dl>
+              <p class="quote">“Buuu… con permiso, darling.”</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="beast reveal" data-k="yogoyogo" style="--c:var(--c-yog)">
+          <div class="stage">
+            <img class="beast-img" src="img/yogurillas.png" alt="Las Yogurillas">
+            <svg class="lid" aria-hidden="true"><use href="#foil-lid"/></svg>
+            <span class="no-abrir" aria-hidden="true">¡NO ABRIR!</span>
+            <span class="shout" aria-hidden="true">¡SPLASH!</span>
+            <p class="bubble" aria-live="polite"></p>
+          </div>
+          <div class="beast-body">
+            <span class="tag">Vive en: Yogo Yogo</span>
+            <h3><span class="unknown">¿¿¿???</span><span class="known">Yogurillas</span></h3>
+            <p class="teaser">Criatura sin identificar. Pista: es cremosa, frutal y se escurre por todas partes…</p>
+            <button class="summon" type="button">Llámalas: <b>“¡Yogurillas!”</b><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span></button>
+            <div class="dossier" hidden>
+              <p>Criaturas cremosas y frutales, súper escurridizas, que se esconden en los Yogo Yogo.</p>
+              <dl class="stats">
+                <div><dt>Superpoder</dt><dd>Escurrirse por cualquier rendija</dd></div>
+                <div><dt>Travesura</dt><dd><span class="meter" aria-label="4 de 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i></i></span></dd></div>
+                <div><dt>Le da miedo</dt><dd>Que las pongan en fila</dd></div>
+              </dl>
+              <p class="quote">“¡Atrápanos si puedes! Jijiji.”</p>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= SELLOS ================= -->
+  <section id="sellos">
+    <div class="wrap" style="max-width:980px">
+      <div class="sec-head reveal">
+        <span class="kick">La misión</span>
+        <h2>Junta los <span class="creep">3 sellos</span></h2>
+        <p>Cada tapa con runas plateadas esconde un código QR. Escanéalo y el sello de ese monstruo queda en tu pasaporte. Con los 3 sellos desbloqueas contenido secreto y participas por el kit ritual coleccionable. 📦</p>
+      </div>
+
+      <div class="passport reveal">
+        <h3>Pasaporte al Mundo Plateado</h3>
+        <p class="sub">Propiedad de un lamedor de tapas certificado</p>
+        <div class="slots">
+          <div class="slot" data-k="bonyurt" style="--c:var(--c-bon)">
+            <div class="ring"><img src="img/bonyurters.png" alt=""><span class="ink">¡SELLADO!</span></div>
+            <span class="lbl">Bon Yurt</span><span class="st">Falta</span>
+          </div>
+          <div class="slot" data-k="alpinette" style="--c:var(--c-alp)">
+            <div class="ring"><img src="img/alpinettes.png" alt=""><span class="ink">¡SELLADO!</span></div>
+            <span class="lbl">Alpinette</span><span class="st">Falta</span>
+          </div>
+          <div class="slot" data-k="yogoyogo" style="--c:var(--c-yog)">
+            <div class="ring"><img src="img/yogurillas.png" alt=""><span class="ink">¡SELLADO!</span></div>
+            <span class="lbl">Yogo Yogo</span><span class="st">Falta</span>
+          </div>
+        </div>
+        <div class="progress"><div class="bar" aria-hidden="true"><i id="seal-bar"></i></div><b><span id="seal-n">0</span> de 3</b></div>
+        <p class="missing" id="missing" aria-live="polite"></p>
+
+        <div class="how">
+          <div><b>1</b>Busca la tapa con runas plateadas</div>
+          <div><b>2</b>Escanea el QR escondido</div>
+          <div><b>3</b>¡Sello directo a tu pasaporte!</div>
+        </div>
+
+        <details class="code-box">
+          <summary>¿El QR no funcionó? Escribe el código de tu tapa</summary>
+          <form class="code-form" id="code-form" novalidate>
+            <span class="field-label" id="pick-label">¿De qué tapa es?</span>
+            <div class="chips" role="radiogroup" aria-labelledby="pick-label">
+              <input type="radio" name="p" id="p-bonyurt" value="bonyurt"><label class="chip" for="p-bonyurt" style="--c:var(--c-bon)"><img src="img/bonyurters.png" alt="">Bon Yurt</label>
+              <input type="radio" name="p" id="p-alpinette" value="alpinette"><label class="chip" for="p-alpinette" style="--c:var(--c-alp)"><img src="img/alpinettes.png" alt="">Alpinette</label>
+              <input type="radio" name="p" id="p-yogoyogo" value="yogoyogo"><label class="chip" for="p-yogoyogo" style="--c:var(--c-yog)"><img src="img/yogurillas.png" alt="">Yogo Yogo</label>
+            </div>
+            <label class="field-label" for="code">Código secreto (8 letras o números)</label>
+            <input class="input code" id="code" maxlength="8" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="••••••••">
+            <div style="margin-top:14px"><button class="btn" type="submit" style="width:100%">¡Sellar!</button></div>
+            <p class="msg" id="code-msg" role="status" aria-live="polite"></p>
+          </form>
+        </details>
+      </div>
+
+      <div class="villain reveal">
+        <svg viewBox="0 0 200 200" role="img" aria-label="El Monstruo de la Tapa Seca, una tapa gris y gruñona con un pitillo"><use href="#tapa-seca"/></svg>
+        <div>
+          <h3>El Monstruo de la <span class="creep">Tapa Seca</span> llega en…</h3>
+          <p>Cuando el reloj llegue a cero, intentará chuparse todo el sabor. ¡Junta tus sellos antes!</p>
+          <div class="countdown" aria-live="off">
+            <div class="cd"><b id="cd-d">00</b><span>días</span></div>
+            <div class="cd"><b id="cd-h">00</b><span>horas</span></div>
+            <div class="cd"><b id="cd-m">00</b><span>min</span></div>
+            <div class="cd"><b id="cd-s">00</b><span>seg</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="prize reveal" id="premio">
+        <div class="locked-box" id="prize-locked">
+          <span class="pad" aria-hidden="true">🔒</span>
+          <h3>Lo que se esconde tras la puerta</h3>
+          <p id="prize-left">Se abre cuando juntes los 3 sellos.</p>
+          <div class="prize-teasers">
+            <div><span aria-hidden="true">🎁</span><b>Premio seguro</b>Todos los guardianes desbloquean contenido secreto: un filtro AR especial y un adelanto exclusivo de la serie.</div>
+            <div><span aria-hidden="true">📦</span><b>Gran sorteo</b>Entre los guardianes inscritos se sortea el kit PR premium con los empaques “ritual” coleccionables. ¡Hay muy poquitos!</div>
+          </div>
+        </div>
+
+        <div id="prize-open" hidden>
+          <div class="panel">
+            <span class="cap">Premio seguro desbloqueado</span>
+            <h3 style="font-size:clamp(26px,3.4vw,36px)">¡Esto es solo para guardianes! 🗝️</h3>
+            <p>Juntaste los 3 sellos, así que el Mundo Plateado te comparte sus secretos.</p>
+            <div class="unlock-grid">
+              <div class="unlock-item">
+                <span class="ic" aria-hidden="true">🎭</span>
+                <b>Filtro AR secreto: Modo Guardián</b>
+                <p>Una versión especial del Efecto Lamedor que solo tienen quienes juntaron los 3 sellos.</p>
+                <a class="btn small blue" id="u-filter" href="#" data-label="Abrir filtro secreto">Abrir filtro secreto</a>
+              </div>
+              <div class="unlock-item">
+                <span class="ic" aria-hidden="true">🎬</span>
+                <b>Adelanto exclusivo de la serie</b>
+                <p>Mira antes que nadie un pedacito de Las Crónicas del Mundo Plateado.</p>
+                <a class="btn small blue" id="u-series" href="#" data-label="Ver adelanto">Ver adelanto</a>
+              </div>
+            </div>
+          </div>
+
+          <form class="panel" id="pact-form" novalidate>
+            <div id="pact-fields">
+              <span class="cap">Gran sorteo</span>
+              <h3 style="font-size:clamp(26px,3.4vw,36px)">Participa por el kit ritual 📦</h3>
+              <p>Entre todos los guardianes inscritos se sorteará el kit PR premium con los empaques “ritual” coleccionables. Pídele a un adulto que llene esto.</p>
+              <div class="form-grid">
+                <div><label class="field-label" for="f-kid">Nombre del guardián o guardiana</label><input class="input" id="f-kid" autocomplete="off" maxlength="60"></div>
+                <div><label class="field-label" for="f-adult">Nombre del adulto responsable</label><input class="input" id="f-adult" autocomplete="name" maxlength="80"></div>
+                <div><label class="field-label" for="f-mail">Correo del adulto</label><input class="input" id="f-mail" type="email" autocomplete="email" maxlength="160"></div>
+                <div><label class="field-label" for="f-phone">Celular del adulto</label><input class="input" id="f-phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="16"></div>
+                <div style="grid-column:1/-1"><label class="field-label" for="f-city">Ciudad</label><input class="input" id="f-city" autocomplete="address-level2" maxlength="60"></div>
+              </div>
+              <label class="check"><input type="checkbox" id="f-adult-ok"><span>Soy mayor de edad y el adulto responsable de este guardián.</span></label>
+              <label class="check"><input type="checkbox" id="f-data"><span>Autorizo el tratamiento de datos según la <a href="#" data-todo="politica">Política de Tratamiento de Datos</a> y acepto los <a href="#" data-todo="terminos">Términos y Condiciones</a>.</span></label>
+              <div style="margin-top:18px"><button class="btn blue" type="submit" style="width:100%">Inscribirme en el sorteo</button></div>
+              <p class="msg" id="pact-msg" role="status" aria-live="polite"></p>
+            </div>
+            <div class="cert" id="cert" hidden>
+              <span class="cap">Certificado oficial</span>
+              <div class="seal-row" aria-hidden="true"><img src="img/bonyurters.png" alt=""><img src="img/alpinettes.png" alt=""><img src="img/yogurillas.png" alt=""></div>
+              <h3>Guardián del Mundo Plateado</h3>
+              <p>Otorgado a</p>
+              <p class="who" id="cert-name">—</p>
+              <p>por liberar a los monstruos del sabor y salvar la galaxia Alpina del Monstruo de la Tapa Seca.</p>
+              <p class="draw-note" id="draw-note"></p>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= RETO LICK-ART ================= -->
+  <section id="reto">
+    <svg class="drip" viewBox="0 0 1200 80" preserveAspectRatio="none" aria-hidden="true"><path fill="#9b5de5" d="M0,0 H1200 V18 Q1180,18 1172,30 Q1165,62 1152,62 Q1139,62 1136,32 Q1130,18 1100,20 Q1040,22 1030,28 Q1022,44 1012,44 Q1002,44 998,28 Q990,18 930,20 Q880,20 872,34 Q866,78 850,78 Q834,78 830,36 Q824,18 760,20 Q700,22 694,30 Q688,48 678,48 Q668,48 664,30 Q658,18 600,20 Q540,22 532,34 Q526,66 512,66 Q498,66 494,34 Q488,18 420,20 Q360,22 354,30 Q348,42 340,42 Q332,42 328,30 Q322,18 260,20 Q200,22 194,34 Q188,70 174,70 Q160,70 156,34 Q150,18 90,20 Q40,22 34,30 Q28,50 18,50 Q8,50 6,30 Q4,20 0,20 Z"/></svg>
+    <div class="wrap">
+      <div class="lick">
+        <div class="reveal">
+          <span class="sec-head" style="margin:0;text-align:left"><span class="kick">El reto</span></span>
+          <p class="hashtag">#LickArtAlpina</p>
+          <p style="margin-top:10px;font-size:19px">Las manchitas que deja el yogurt en tu tapa no son manchas. <b style="color:var(--slime)">Son monstruos esperando que los descubras.</b></p>
+          <ol class="steps">
+            <li><span><b>Lame tu tapa.</b> Sí, ese es el ritual.</span></li>
+            <li><span><b>Mira las manchas.</b> ¿Ves una cara? ¿Unos dientes? ¿Un tentáculo?</span></li>
+            <li><span><b>Dibuja tu monstruo</b> encima con un marcador negro.</span></li>
+            <li><span><b>Tómale foto</b> y compártela con #LickArtAlpina.</span></li>
+          </ol>
+          <a class="btn orange" href="#" data-link="tiktokChallenge">Ver el reto en TikTok</a>
+          <p class="safe">🧑‍🤝‍🧑 Pídele a un adulto que te ayude a subir tu foto a redes.</p>
+        </div>
+        <div class="board reveal">
+          <h3>Practica aquí tu Lick-Art ✏️</h3>
+          <p>Dibuja con el dedo sobre las manchas de yogurt.</p>
+          <div class="canvas-wrap"><canvas id="lick-canvas" aria-label="Tapa de aluminio para dibujar un monstruo con el dedo o el mouse"></canvas></div>
+          <div class="tools">
+            <button class="btn small" type="button" id="lick-new">🎲 Otras manchas</button>
+            <button class="btn small light" type="button" id="lick-clear">🧽 Borrar</button>
+            <button class="btn small blue" type="button" id="lick-save">💾 Guardar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FILTRO AR ================= -->
+  <section id="filtro">
+    <div class="wrap">
+      <div class="ar">
+        <div class="phone reveal" id="ar-phone" aria-hidden="true">
+          <div class="screen">
+            <span class="ar-label" id="ar-label">¡Monstruo liberado!</span>
+            <svg class="face" viewBox="0 0 200 260">
+              <path d="M10 260 C14 214 50 196 100 196 C150 196 186 214 190 260 Z" fill="#ff7a1a" stroke="#0b0630" stroke-width="4"/>
+              <rect x="84" y="166" width="32" height="36" fill="#e9b48a" stroke="#0b0630" stroke-width="4"/>
+              <circle cx="100" cy="112" r="62" fill="#f1c29a" stroke="#0b0630" stroke-width="4"/>
+              <path d="M40 104 C40 56 70 44 100 44 C136 44 162 60 160 104 C150 80 128 72 100 74 C76 74 56 82 40 104 Z" fill="#3b2314" stroke="#0b0630" stroke-width="4"/>
+              <g class="mk">
+                <circle cx="78" cy="112" r="17" fill="#9b5de5" opacity=".75"/>
+                <circle cx="122" cy="112" r="17" fill="#8cff3a" opacity=".75"/>
+                <path d="M60 140 l10 -4 M62 134 l4 10 M68 132 l4 10" stroke="#0b0630" stroke-width="3"/>
+              </g>
+              <circle cx="78" cy="112" r="7" fill="#0b0630"/><circle cx="122" cy="112" r="7" fill="#0b0630"/>
+              <circle cx="80" cy="110" r="2" fill="#fff"/><circle cx="124" cy="110" r="2" fill="#fff"/>
+              <path d="M84 138 Q100 156 116 138 Z" fill="#6b1030" stroke="#0b0630" stroke-width="3"/>
+              <path d="M92 146 Q100 168 108 146 Z" fill="#ff7aa2" stroke="#0b0630" stroke-width="3"/>
+              <g transform="translate(118 150) rotate(-18)"><ellipse cx="0" cy="0" rx="30" ry="12" fill="#d9dde1" stroke="#0b0630" stroke-width="3"/><ellipse cx="0" cy="-2" rx="24" ry="8" fill="#f4f6f8"/></g>
+            </svg>
+            <img class="ar-m" id="ar-monster" src="img/alpinettes.png" alt="">
+          </div>
+          <div class="static"></div>
+          <div class="rec"></div>
+        </div>
+        <div class="reveal">
+          <span class="kick" style="display:inline-block;font-family:var(--f-head);font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;background:var(--yellow);color:var(--ink);padding:4px 14px;border-radius:999px;border:3px solid var(--ink)">Filtro AR</span>
+          <h3 style="margin-top:14px">Efecto <span class="creep">Lamedor</span></h3>
+          <p style="margin-top:12px;font-size:19px">Pon la cámara frontal, haz como que lames tu tapa y… ¡zzzt! La pantalla se llena de estática plateada y aparece el monstruo que liberaste, <b style="color:var(--slime)">flotando en tu hombro</b>. Además te pinta la cara de monstruo.</p>
+          <div class="btns">
+            <a class="btn" href="#" data-link="igFilter">Probar en Instagram</a>
+            <a class="btn light" href="#" data-link="ttFilter">Probar en TikTok</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MÁS DEL MUNDO PLATEADO ================= -->
+  <section id="mas" style="padding-top:20px">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="kick">Hay más</span>
+        <h2>Más del <span class="creep">Mundo Plateado</span></h2>
+      </div>
+      <div class="more">
+        <article class="panel reveal">
+          <span class="soon">Micro-serie</span>
+          <h3>Las Crónicas del Mundo Plateado</h3>
+          <p>Unos amigos lamen un Alpinette de Halloween a medianoche en la tienda del barrio… y el portal se los traga. ¿Podrán detener al Monstruo de la Tapa Seca?</p>
+          <a class="btn small blue" href="#" data-link="cronicas">Ver capítulos</a>
+        </article>
+        <article class="panel reveal">
+          <span class="soon">Documental (casi) serio</span>
+          <h3>Los Secretos de Sopó</h3>
+          <p>Los científicos de calidad de Alpina explican cómo miden el grosor del aluminio para que los espíritus del sabor no se escapen… antes de tiempo.</p>
+          <a class="btn small blue" href="#" data-link="sopo">Ver en YouTube</a>
+        </article>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <a class="brand-logo foot" href="#inicio"><img src="img/alpina-logo.png" alt="Alpina, ir al inicio" width="114" height="64"></a>
+  <nav>
+    <a href="#" data-todo="terminos">Términos y condiciones</a>
+    <a href="#" data-todo="politica">Tratamiento de datos</a>
+    <a href="#" data-todo="faq">Preguntas frecuentes</a>
+  </nav>
+  <p class="legal">Actividad dirigida a niños y niñas con acompañamiento de un adulto responsable. El registro de datos lo hace únicamente un adulto. Válida en Colombia del 1 al 31 de octubre de 2026 o hasta agotar existencias. Premio seguro: contenido digital exclusivo para quienes junten los 3 sellos. Sorteo del kit PR premium entre los inscritos, sujeto a autorización de Coljuegos [N.º DE AUTORIZACIÓN]. Aplican términos y condiciones.</p>
+</footer>
+
+<script>
+(() => {
+  'use strict';
+  const $ = (s, c = document) => c.querySelector(s);
+  const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+  /* ================= CONFIGURACIÓN DE CAMPAÑA ================= */
+  const CONFIG = {
+    start: new Date('2026-10-01T00:00:00-05:00'),     // hora de Colombia
+    deadline: new Date('2026-10-31T23:59:59-05:00'),
+    codePattern: /^[A-Z0-9]{8}$/,
+    // Con server.py la API vive en /api. Si abres el archivo directo en el navegador, la página corre en modo demo.
+    api: location.protocol === 'file:' ? '' : '/api',
+    drawDate: '[FECHA DEL SORTEO]',
+    links: {
+      tiktokChallenge: 'https://www.tiktok.com/@alpinacol',
+      igFilter: 'https://www.instagram.com/alpina/',
+      ttFilter: 'https://www.tiktok.com/@alpinacol',
+      cronicas: 'https://www.tiktok.com/@alpinacol',
+      sopo: ''
+    }
+  };
+  const DEMO = !CONFIG.api;
+  const M = {
+    bonyurt:  { name: 'Bon Yurters', art: 'los', lib: 'liberados', product: 'Bon Yurt',  img: 'img/bonyurters.png', color: '#ff7a1a', sfx: 'crunch',
+      lines: ['¡CRUNCH! ¡KAO!', '¡LIBERTAAAD!', '¿Quién se comió mi cereal? …ah, fui yo.', '¡Tenemos 8 brazos y cero modales!', '¡Lame la tapa! ¡Lame la tapa!'] },
+    alpinette:{ name: 'Alpinettes', art: 'las', lib: 'liberadas', product: 'Alpinette', img: 'img/alpinettes.png',  color: '#e0245e', sfx: 'ghost',
+      lines: ['Buuu… con permiso.', '¿Me pasas una cuchara, darling?', 'Mi corazón es de mermelada. Literal.', 'Asustar es un arte, querido.', 'Uuuh, qué tapa tan brillante.'] },
+    yogoyogo: { name: 'Yogurillas', art: 'las', lib: 'liberadas', product: 'Yogo Yogo', img: 'img/yogurillas.png',  color: '#9b5de5', sfx: 'splash',
+      lines: ['¡Atrápanos si puedes! Jijiji', '¡Nos escapamos por la boquilla!', 'Fresa, durazno y mora reportándose.', '¡Splash! ¿Te mojé? Perdón. No perdón.', '¡Somos escurridizas, no babosas!'] }
+  };
+  const KEYS = Object.keys(M);
+  const ERR = {
+    pick: '¡Ups! Primero elige de qué tapa es tu código.',
+    format: 'Mmm… ese código tiene que tener 8 letras o números. Revisa tu tapa.',
+    invalid: 'Los monstruos no reconocen ese código. Revisa las letras de tu tapa.',
+    used: 'Ese código ya lo usó otro lamedor de tapas. 😱',
+    not_started: 'El ritual empieza el 1 de octubre. ¡Paciencia, pequeño monstruo!',
+    ended: 'El ritual ya terminó. ¡Nos vemos el próximo Halloween!',
+    rate_limited: '¡Uy, muchos intentos! Descansa un ratico y vuelve a probar.',
+    need_seals: 'Primero hay que juntar los 3 sellos.',
+    email_limit: 'Ese correo ya inscribió a varios guardianes.',
+    network: 'No pudimos hablar con el Mundo Plateado. Revisa tu internet e inténtalo otra vez.'
+  };
+  const FIELD = { kid: 'el nombre del guardián', adult: 'el nombre del adulto', email: 'el correo', phone: 'el celular (10 dígitos)', city: 'la ciudad', consent: 'las dos casillas' };
+
+  /* ================= ALMACENAMIENTO LOCAL ================= */
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch {} }
+  };
+  let seals = store.get('ppl2_seals', {});
+  let freed = store.get('ppl2_freed', {});
+  let reg = store.get('ppl2_reg', null);
+  let unlocks = null;
+
+  // Identificador anónimo del participante. No contiene datos personales.
+  function newId() {
+    if (crypto.randomUUID) return crypto.randomUUID();
+    const b = crypto.getRandomValues(new Uint8Array(16)); b[6] = (b[6] & 15) | 64; b[8] = (b[8] & 63) | 128;
+    const h = [...b].map(x => x.toString(16).padStart(2, '0')).join('');
+    return `${h.slice(0, 8)}-${h.slice(8, 12)}-${h.slice(12, 16)}-${h.slice(16, 20)}-${h.slice(20)}`;
+  }
+  let pid = store.get('ppl2_pid', null);
+  if (typeof pid !== 'string' || !/^[a-f0-9-]{16,40}$/.test(pid)) { pid = newId(); store.set('ppl2_pid', pid); }
+
+  /* ================= API ================= */
+  async function api(path, body) {
+    let r;
+    try {
+      r = await fetch(CONFIG.api + path, body
+        ? { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
+        : { cache: 'no-store' });
+    } catch { const e = new Error('network'); e.code = 'network'; throw e; }
+    let d = {}; try { d = await r.json(); } catch {}
+    if (!r.ok || !d.ok) { const e = new Error(d.error || 'network'); e.code = d.error || 'network'; e.data = d; throw e; }
+    return d;
+  }
+  function useServerSeals(list) {
+    seals = {};
+    (list || []).forEach(k => { if (M[k]) seals[k] = { at: Date.now() }; });
+    store.set('ppl2_seals', seals);
+  }
+  async function redeem(code, product, via) {
+    if (DEMO) {
+      await sleep(800);
+      if (!product) { const e = new Error('pick'); e.code = 'pick'; throw e; }
+      return { granted: product, already: !!seals[product], seals: KEYS.filter(k => seals[k] || k === product), unlocks: null };
+    }
+    return api('/redeem', { pid, code, product, via });
+  }
+
+  /* ================= ORIGEN DEL QR: ?tapa=bonyurt&c=CODIGO ================= */
+  const params = new URLSearchParams(location.search);
+  const raw = (params.get('tapa') || params.get('p') || '').toLowerCase().replace(/[^a-z]/g, '');
+  const source = M[raw] ? raw : null;
+  const qrCode = (params.get('c') || '').toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8) || null;
+  if (params.has('c')) { // el código no se queda en la barra de direcciones si alguien comparte el enlace
+    try { const u = new URL(location.href); u.searchParams.delete('c'); history.replaceState(null, '', u); } catch {}
+  }
+  if (source) {
+    const m = M[source];
+    $('#gate-source').innerHTML = `Esta tapa de <b style="color:${m.color}">${m.product}</b> está temblando. Algo quiere salir… y creemos que son <b>${m.name}</b>.`;
+    const r = $('#p-' + source); if (r) r.checked = true;
+  }
+
+  /* ================= SONIDO (Web Audio, sin archivos) ================= */
+  const A = { ctx: null, out: null, on: store.get('ppl2_sound', true), timer: null, noise: null };
+  function ctx() {
+    if (A.ctx) return A.ctx;
+    const AC = window.AudioContext || window.webkitAudioContext; if (!AC) return null;
+    A.ctx = new AC(); A.out = A.ctx.createGain(); A.out.gain.value = .8; A.out.connect(A.ctx.destination);
+    return A.ctx;
+  }
+  function wake() { const c = ctx(); if (c && c.state === 'suspended') c.resume(); }
+  function tone(f, dur, o = {}) {
+    if (!A.on || !A.ctx) return;
+    const c = A.ctx, t = c.currentTime + (o.delay || 0);
+    const osc = c.createOscillator(), g = c.createGain();
+    osc.type = o.type || 'sine'; osc.frequency.setValueAtTime(f, t);
+    if (o.to) osc.frequency.exponentialRampToValueAtTime(o.to, t + dur);
+    if (o.vib) { const l = c.createOscillator(), lg = c.createGain(); l.frequency.value = 6; lg.gain.value = o.vib; l.connect(lg); lg.connect(osc.frequency); l.start(t); l.stop(t + dur + .05); }
+    g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(o.vol || .15, t + .015); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    osc.connect(g); g.connect(A.out); osc.start(t); osc.stop(t + dur + .05);
+  }
+  function noise(dur, o = {}) {
+    if (!A.on || !A.ctx) return;
+    const c = A.ctx, t = c.currentTime + (o.delay || 0);
+    if (!A.noise) { A.noise = c.createBuffer(1, c.sampleRate, c.sampleRate); const d = A.noise.getChannelData(0); for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1; }
+    const s = c.createBufferSource(); s.buffer = A.noise; s.loop = true;
+    const fl = c.createBiquadFilter(); fl.type = o.type || 'bandpass'; fl.frequency.setValueAtTime(o.f || 1200, t);
+    if (o.f2) fl.frequency.exponentialRampToValueAtTime(o.f2, t + dur); fl.Q.value = o.q || 1;
+    const g = c.createGain(); g.gain.setValueAtTime(o.vol || .2, t); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    s.connect(fl); fl.connect(g); g.connect(A.out); s.start(t); s.stop(t + dur + .05);
+  }
+  const sfx = {
+    pop()    { tone(500, .14, { to: 1200, vol: .18 }); },
+    boing()  { tone(170, .5, { to: 520, vib: 40, vol: .16 }); },
+    crunch() { for (let i = 0; i < 6; i++) noise(.06, { f: 1600 + Math.random() * 1800, q: 2, vol: .4, delay: i * .07 }); },
+    ghost()  { tone(330, 1.2, { to: 560, vib: 16, vol: .12 }); },
+    splash() { noise(.5, { type: 'lowpass', f: 3200, f2: 280, vol: .32 }); tone(800, .25, { to: 220, vol: .08 }); },
+    stamp()  { tone(150, .28, { to: 50, vol: .35 }); noise(.08, { f: 900, vol: .25 }); },
+    peel()   { noise(.4, { type: 'highpass', f: 2500, f2: 7000, vol: .14 }); },
+    shake()  { tone(95, .3, { type: 'square', vol: .05, vib: 30 }); },
+    fanfare(){ [523, 659, 784, 1047, 784, 1047].forEach((f, i) => tone(f, .32, { type: 'triangle', vol: .13, delay: i * .11 })); },
+    error()  { tone(230, .3, { type: 'square', to: 150, vol: .06 }); }
+  };
+  const MEL = [440, 523, 659, 523, 440, 392, 415, 494, 440, 523, 659, 784, 740, 659, 523, 494];
+  function startMusic() {
+    if (A.timer || !A.on || reduced) return;
+    let i = 0;
+    A.timer = setInterval(() => {
+      const n = MEL[i % MEL.length];
+      tone(n * 2, .55, { type: 'triangle', vol: .03 });
+      if (i % 4 === 0) tone(n / 2, .9, { vol: .035 });
+      i++;
+    }, 380);
+  }
+  function stopMusic() { clearInterval(A.timer); A.timer = null; }
+  function renderSound() {
+    $$('[data-sound]').forEach(b => {
+      b.setAttribute('aria-pressed', A.on);
+      b.querySelector('.ic').textContent = A.on ? '🔊' : '🔇';
+      b.querySelector('.lbl').textContent = A.on ? 'Sonido: sí' : 'Sonido: no';
+    });
+  }
+  $$('[data-sound]').forEach(b => b.addEventListener('click', () => {
+    A.on = !A.on; store.set('ppl2_sound', A.on); renderSound();
+    if (A.on) { wake(); sfx.pop(); if (gateOpened) startMusic(); } else stopMusic();
+  }));
+  renderSound();
+
+  /* ================= CONFETI ================= */
+  const fxc = $('#fx'), fx2 = fxc.getContext('2d');
+  let parts = [], running = false, FD = 1;
+  function fxResize() { FD = Math.min(devicePixelRatio || 1, 2); fxc.width = innerWidth * FD; fxc.height = innerHeight * FD; }
+  fxResize(); addEventListener('resize', fxResize);
+  function burst(x, y, n = 80, cols = ['#8cff3a', '#ff7a1a', '#9b5de5', '#ffd84d', '#ffffff', '#e0245e']) {
+    if (reduced) return;
+    for (let i = 0; i < n; i++) {
+      const a = Math.random() * Math.PI * 2, v = (4 + Math.random() * 10) * FD;
+      parts.push({ x: x * FD, y: y * FD, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 5 * FD, r: (3 + Math.random() * 6) * FD,
+        c: cols[i % cols.length], life: 1, sq: Math.random() < .5, rot: Math.random() * 6 });
+    }
+    if (!running) { running = true; requestAnimationFrame(fxLoop); }
+  }
+  function fxLoop() {
+    fx2.clearRect(0, 0, fxc.width, fxc.height);
+    parts = parts.filter(p => p.life > 0);
+    for (const p of parts) {
+      p.vy += .35 * FD; p.vx *= .985; p.x += p.vx; p.y += p.vy; p.life -= .011; p.rot += .12;
+      fx2.globalAlpha = Math.max(0, p.life); fx2.fillStyle = p.c;
+      if (p.sq) { fx2.save(); fx2.translate(p.x, p.y); fx2.rotate(p.rot); fx2.fillRect(-p.r, -p.r / 2, p.r * 2, p.r); fx2.restore(); }
+      else { fx2.beginPath(); fx2.arc(p.x, p.y, p.r, 0, 6.283); fx2.fill(); }
+    }
+    fx2.globalAlpha = 1;
+    if (parts.length) requestAnimationFrame(fxLoop); else running = false;
+  }
+  const centerOf = el => { const r = el.getBoundingClientRect(); return [r.left + r.width / 2, r.top + r.height / 2]; };
+
+  /* ================= TOAST ================= */
+  function toast(title, text, key) {
+    const t = $('#toast');
+    t.innerHTML = '';
+    if (key) { const im = document.createElement('img'); im.src = M[key].img; im.alt = ''; t.appendChild(im); }
+    const b = document.createElement('b'); b.textContent = title; t.appendChild(b); t.appendChild(document.createTextNode(text));
+    t.style.paddingLeft = key ? '' : '18px';
+    t.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 4600);
+  }
+
+  /* ================= ABRIR LA PUERTA PLATEADA ================= */
+  const gate = $('#gate'), tab = $('#gate-tab');
+  let gateOpened = false, drag = null, skipClick = false;
+  const order = source ? [source, ...KEYS.filter(k => k !== source)] : ['bonyurt', 'yogoyogo', 'alpinette'];
+  const spots = [
+    { tx: '0px', ty: '-22vh', s: 1.15, r: '-4deg' },
+    { tx: '-30vw', ty: '8vh', s: .85, r: '-12deg' },
+    { tx: '30vw', ty: '8vh', s: .85, r: '10deg' }
+  ];
+  const pows = [['¡CRUNCH!', '-28vw', '-26vh', '-12deg'], ['¡BUUU!', '22vw', '-30vh', '10deg'], ['¡SPLASH!', '-4vw', '26vh', '-4deg'], ['¡LIBERTAD!', '24vw', '22vh', '8deg']];
+  $('#burst').innerHTML =
+    order.map((k, i) => `<img src="${M[k].img}" alt="" style="--tx:${spots[i].tx};--ty:${spots[i].ty};--s:${spots[i].s};--r:${spots[i].r};--d:${.45 + i * .15}s">`).join('') +
+    pows.map((p, i) => `<span class="pow" style="left:${p[1]};top:${p[2]};--r:${p[3]};--d:${.7 + i * .12}s">${p[0]}</span>`).join('');
+
+  function setP(p) { gate.style.setProperty('--p', p.toFixed(3)); }
+  tab.addEventListener('pointerdown', e => {
+    if (gateOpened) return;
+    wake(); sfx.peel();
+    drag = { x: e.clientX, y: e.clientY, p: 0, moved: false };
+    gate.classList.add('dragging'); tab.setPointerCapture(e.pointerId);
+  });
+  tab.addEventListener('pointermove', e => {
+    if (!drag) return;
+    const d = Math.hypot(e.clientX - drag.x, e.clientY - drag.y);
+    if (d > 8) drag.moved = true;
+    drag.p = Math.min(1, d / 230); setP(drag.p);
+  });
+  tab.addEventListener('pointerup', () => {
+    if (!drag) return;
+    const { p, moved } = drag; drag = null; gate.classList.remove('dragging');
+    if (moved) { skipClick = true; if (p > .3) openGate(); else setP(0); }
+  });
+  tab.addEventListener('pointercancel', () => { drag = null; gate.classList.remove('dragging'); setP(0); });
+  tab.addEventListener('click', () => { if (skipClick) { skipClick = false; return; } wake(); openGate(); });
+
+  function openGate() {
+    if (gateOpened) return; gateOpened = true;
+    wake(); sfx.peel(); setP(1); gate.classList.add('open');
+    setTimeout(() => {
+      sfx.pop(); order.forEach((k, i) => setTimeout(() => sfx[M[k].sfx](), 200 + i * 260));
+      const [x, y] = centerOf($('.lid-wrap')); burst(x, y, 140);
+    }, reduced ? 0 : 450);
+    setTimeout(() => {
+      gate.classList.add('gone'); document.body.classList.remove('locked'); startMusic();
+      if (source || qrCode) setTimeout(handleQR, 700);
+    }, reduced ? 300 : 2700);
+    setTimeout(() => gate.remove(), reduced ? 1200 : 3600);
+  }
+  tab.focus({ preventScroll: true });
+
+  function openCodeBox(k) {
+    const box = $('.code-box'); if (box) box.open = true;
+    if (k) { const r = $('#p-' + k); if (r) r.checked = true; }
+  }
+  async function handleQR() {
+    if (qrCode) {
+      try { onRedeemed(await redeem(qrCode, source, 'qr'), 'qr'); }
+      catch (e) { toast('¡Ups!', ERR[e.code] || ERR.network, source); openCodeBox(source); }
+    } else if (source) {
+      const card = $(`.beast[data-k="${source}"]`); if (card) release(card, true);
+      toast(`¡${M[source].name} ${M[source].lib}!`, ' Escribe el código de tu tapa para ganar su sello. 🔑', source);
+      openCodeBox(source);
+    }
+  }
+
+  /* ================= HÉROES: TÓCALOS ================= */
+  $$('.crew-m').forEach(b => {
+    const k = b.dataset.k, say = $('.say', b); let i = Math.floor(Math.random() * 5);
+    b.addEventListener('click', () => {
+      say.textContent = M[k].lines[i++ % M[k].lines.length];
+      say.classList.add('show'); b.classList.remove('squish'); void b.offsetWidth; b.classList.add('squish');
+      sfx.boing(); setTimeout(() => sfx[M[k].sfx](), 120);
+      clearTimeout(b.t); b.t = setTimeout(() => say.classList.remove('show'), 2600);
+    });
+  });
+
+  /* ================= APARICIÓN AL HACER SCROLL ================= */
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { threshold: .15 });
+  $$('.reveal').forEach(el => io.observe(el));
+
+  /* ================= BESTIARIO: DI SU NOMBRE 3 VECES ================= */
+  function release(card, quiet) {
+    const k = card.dataset.k;
+    if (card.classList.contains('freed')) return;
+    card.classList.add('freed');
+    $('.dossier', card).hidden = false; $('.summon', card).hidden = true; $('.bubble', card).textContent = '';
+    if (!freed[k]) { freed[k] = 1; store.set('ppl2_freed', freed); }
+    if (!quiet) {
+      sfx.pop(); setTimeout(() => sfx[M[k].sfx](), 150);
+      const [x, y] = centerOf($('.stage', card)); burst(x, y, 70, [M[k].color, '#8cff3a', '#ffffff', '#ffd84d']);
+    }
+  }
+  $$('.beast').forEach(card => {
+    const k = card.dataset.k; let n = 0;
+    if (freed[k]) release(card, true);
+    $('.summon', card).addEventListener('click', () => {
+      if (card.classList.contains('freed')) return;
+      n++; card.dataset.n = n;
+      $$('.dots i', card).forEach((d, i) => d.classList.toggle('on', i < n));
+      if (n < 3) {
+        sfx.shake();
+        $('.bubble', card).textContent = n === 1 ? '¿Escuchaste eso? 👂' : '¡Algo se mueve ahí adentro! 😱';
+        card.classList.remove('shake'); void card.offsetWidth; card.classList.add('shake');
+      } else release(card);
+    });
+  });
+
+  /* ================= SELLOS Y PREMIOS ================= */
+  function setLink(a, url) {
+    if (url) { a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.textContent = a.dataset.label; a.removeAttribute('aria-disabled'); }
+    else { a.href = '#'; a.removeAttribute('target'); a.textContent = 'Se activa muy pronto ⏳'; a.setAttribute('aria-disabled', 'true'); }
+  }
+  $$('#u-filter, #u-series').forEach(a => a.addEventListener('click', e => {
+    if (a.getAttribute('aria-disabled')) { e.preventDefault(); toast('¡Muy pronto!', ' Este secreto todavía se está cocinando en el Mundo Plateado. 🌀'); }
+  }));
+  function showCert() {
+    $('#cert-name').textContent = (reg && reg.kid) || 'un Guardián del Mundo Plateado';
+    $('#draw-note').textContent = `¡Ya estás en el sorteo del kit ritual! Anunciaremos a los ganadores el ${CONFIG.drawDate} en las redes de Alpina.`;
+    $('#pact-fields').hidden = true; $('#cert').hidden = false;
+  }
+  function renderSeals(stampKey) {
+    const got = KEYS.filter(k => seals[k]);
+    $$('.slot').forEach(s => {
+      const on = !!seals[s.dataset.k];
+      s.classList.toggle('got', on); $('.st', s).textContent = on ? '¡Conseguido!' : 'Falta';
+      if (s.dataset.k === stampKey) { s.classList.remove('stamped'); void s.offsetWidth; s.classList.add('stamped'); }
+    });
+    $$('#mini-seals i').forEach(i => i.classList.toggle('on', !!seals[i.dataset.k]));
+    $('#mini-n').textContent = `${got.length}/3`;
+    $('#mini-seals').setAttribute('aria-label', `Mis sellos: ${got.length} de 3`);
+    $('#seal-n').textContent = got.length;
+    $('#seal-bar').style.setProperty('--v', got.length / 3);
+    const miss = KEYS.filter(k => !seals[k]).map(k => M[k].product);
+    const mi = $('#missing');
+    if (got.length === 3) mi.textContent = '🎉 ¡Pasaporte completo! Los monstruos te reconocen como uno de los suyos.';
+    else if (got.length === 0) mi.textContent = 'Aún no tienes sellos. ¡Empieza por cualquier tapa!';
+    else mi.textContent = `¡Vas bien! Te falta: ${miss.join(' y ')}.`;
+    const done = got.length === 3;
+    $('#prize-locked').hidden = done; $('#prize-open').hidden = !done;
+    $('#prize-left').textContent = `Se abre cuando juntes los 3 sellos. Te faltan ${3 - got.length}.`;
+    if (done) {
+      setLink($('#u-filter'), unlocks && unlocks.secretFilter);
+      setLink($('#u-series'), unlocks && unlocks.seriesPreview);
+      if (reg) showCert();
+    }
+  }
+  function grantSeal(k, via, first) {
+    if (first === undefined) first = !seals[k];
+    if (!seals[k]) seals[k] = { at: Date.now(), via };
+    store.set('ppl2_seals', seals);
+    renderSeals(first ? k : null);
+    const card = $(`.beast[data-k="${k}"]`); if (card) release(card, true);
+    if (!first) { toast(`¡${M[k].name} otra vez!`, ' Ya tienes este sello. Busca las otras tapas. 👀', k); return; }
+    sfx.stamp(); setTimeout(() => sfx[M[k].sfx](), 200);
+    const n = KEYS.filter(x => seals[x]).length;
+    if (n === 3) {
+      setTimeout(() => { sfx.fanfare(); burst(innerWidth / 2, innerHeight / 3, 220); }, 500);
+      toast('¡PASAPORTE COMPLETO!', ' Desbloqueaste tu premio secreto y puedes participar en el sorteo. 🏆', k);
+    } else {
+      burst(innerWidth / 2, innerHeight / 2, 80, [M[k].color, '#8cff3a', '#ffffff']);
+      toast(`¡Sello de ${M[k].product}!`, ` Liberaste a ${M[k].art} ${M[k].name}. Te faltan ${3 - n}.`, k);
+    }
+  }
+  function onRedeemed(d, via) {
+    const k = d.granted, first = !seals[k] && !d.already;
+    if (!DEMO) useServerSeals(d.seals);
+    if (d.unlocks) unlocks = d.unlocks;
+    grantSeal(k, via, first);
+  }
+  renderSeals();
+
+  // Al cargar, el servidor manda: sellos, premio desbloqueado y si ya hay inscripción.
+  if (!DEMO) {
+    api(`/status?pid=${encodeURIComponent(pid)}`).then(d => {
+      useServerSeals(d.seals);
+      unlocks = d.unlocks || null;
+      if (d.registered && !reg) { reg = { kid: '' }; store.set('ppl2_reg', reg); }
+      if (!d.registered && reg) { reg = null; store.set('ppl2_reg', null); }
+      renderSeals();
+    }).catch(() => {});
+  }
+
+  /* Código manual de la tapa */
+  const codeIn = $('#code'), codeMsg = $('#code-msg');
+  let busy = false;
+  codeIn.addEventListener('input', () => { codeIn.value = codeIn.value.toUpperCase().replace(/[^A-Z0-9]/g, '').slice(0, 8); codeIn.classList.remove('bad'); });
+  $('#code-form').addEventListener('submit', async e => {
+    e.preventDefault(); wake();
+    if (busy) return;
+    const sel = $('input[name=p]:checked', e.target), code = codeIn.value.trim();
+    const fail = m => { codeMsg.className = 'msg err'; codeMsg.textContent = m; codeIn.classList.remove('bad'); void codeIn.offsetWidth; codeIn.classList.add('bad'); sfx.error(); };
+    if (!sel) return fail(ERR.pick);
+    if (!CONFIG.codePattern.test(code)) return fail(ERR.format);
+    if (Date.now() > CONFIG.deadline) return fail(ERR.ended);
+    if (Date.now() < CONFIG.start) return fail(ERR.not_started);
+    codeMsg.className = 'msg'; codeMsg.textContent = 'Los monstruos están revisando tu código… 🔍';
+    busy = true;
+    try {
+      const d = await redeem(code, sel.value, 'code');
+      codeMsg.className = 'msg ok'; codeMsg.textContent = d.already ? 'Ese sello ya lo tenías. ¡Guarda el código para otra vez!' : '¡Código aceptado! 🎉';
+      codeIn.value = '';
+      onRedeemed(d, 'code');
+    } catch (err) { fail(ERR[err.code] || ERR.network); }
+    finally { busy = false; }
+  });
+
+  /* ================= CUENTA REGRESIVA ================= */
+  const pad = n => String(n).padStart(2, '0');
+  let endShown = false;
+  function tick() {
+    let s = Math.max(0, Math.floor((CONFIG.deadline - Date.now()) / 1000));
+    if (s === 0 && !endShown) {
+      endShown = true;
+      $('.villain h3').textContent = '¡El Monstruo de la Tapa Seca llegó! El ritual terminó.';
+      $('.villain p').textContent = 'Gracias por jugar, guardián. ¡Nos vemos el próximo Halloween!';
+    }
+    $('#cd-d').textContent = pad(Math.floor(s / 86400)); s %= 86400;
+    $('#cd-h').textContent = pad(Math.floor(s / 3600)); s %= 3600;
+    $('#cd-m').textContent = pad(Math.floor(s / 60)); $('#cd-s').textContent = pad(s % 60);
+  }
+  tick(); setInterval(tick, 1000);
+
+  /* ================= INSCRIPCIÓN AL SORTEO (ADULTO) ================= */
+  $('#pact-form').addEventListener('submit', async e => {
+    e.preventDefault();
+    if (busy) return;
+    const msg = $('#pact-msg'), err = m => { msg.className = 'msg err'; msg.textContent = m; sfx.error(); };
+    const f = { kid: $('#f-kid').value.trim(), adult: $('#f-adult').value.trim(), email: $('#f-mail').value.trim(), phone: $('#f-phone').value.trim(), city: $('#f-city').value.trim() };
+    if (!f.kid || !f.adult || !f.city) return err('Faltan nombres o la ciudad.');
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email)) return err('Revisa el correo del adulto.');
+    if (!/^3\d{9}$/.test(f.phone.replace(/\D/g, '').replace(/^57(?=\d{10}$)/, ''))) return err('El celular debe tener 10 dígitos y empezar por 3.');
+    if (!$('#f-adult-ok').checked || !$('#f-data').checked) return err('El adulto debe aceptar las dos casillas.');
+    msg.className = 'msg'; msg.textContent = 'Enviando al Mundo Plateado…';
+    busy = true;
+    try {
+      if (DEMO) await sleep(900);
+      else await api('/register', { pid, ...f, consentAdult: true, consentData: true });
+    } catch (x) {
+      if (x.code !== 'already_registered') {
+        busy = false;
+        if (x.code === 'bad_field' && x.data && FIELD[x.data.field]) return err(`Revisa ${FIELD[x.data.field]}.`);
+        return err(ERR[x.code] || ERR.network);
+      }
+    }
+    busy = false;
+    reg = { kid: f.kid }; store.set('ppl2_reg', reg);
+    msg.textContent = '';
+    showCert(); sfx.fanfare();
+    const [x, y] = centerOf($('#cert')); burst(x, y, 180);
+  });
+
+  /* ================= LICK-ART: DIBUJA SOBRE LA TAPA ================= */
+  const lc = $('#lick-canvas'), lx = lc.getContext('2d');
+  let S = 0, LD = 1, stains = [], drawing = false, last = null;
+  function newStains() {
+    const cols = ['#fff6e6', '#ffc2d6', '#cdb3f5', '#ffe0a3', '#ffd1dc'];
+    stains = []; const n = 3 + Math.floor(Math.random() * 3);
+    for (let i = 0; i < n; i++) {
+      const cx = .28 + Math.random() * .44, cy = .28 + Math.random() * .44, blobs = [];
+      const m = 5 + Math.floor(Math.random() * 7);
+      for (let j = 0; j < m; j++) blobs.push({ x: cx + (Math.random() - .5) * .22, y: cy + (Math.random() - .5) * .22, r: .025 + Math.random() * .065 });
+      stains.push({ c: cols[Math.floor(Math.random() * cols.length)], blobs });
+    }
+  }
+  function drawFoil() {
+    lx.clearRect(0, 0, S, S); lx.save();
+    lx.beginPath(); lx.arc(S / 2, S / 2, S * .48, 0, Math.PI * 2);
+    const g = lx.createRadialGradient(S * .35, S * .3, S * .05, S * .5, S * .5, S * .5);
+    g.addColorStop(0, '#ffffff'); g.addColorStop(.5, '#cfd4d9'); g.addColorStop(1, '#8e949b');
+    lx.fillStyle = g; lx.fill(); lx.clip();
+    let seed = 11; const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+    for (let i = 0; i < 90; i++) {
+      const x = rnd() * S, y = rnd() * S;
+      lx.beginPath(); lx.moveTo(x, y);
+      lx.lineTo(x + (rnd() - .5) * S * .3, y + (rnd() - .5) * S * .3);
+      lx.lineTo(x + (rnd() - .5) * S * .3, y + (rnd() - .5) * S * .3); lx.closePath();
+      lx.fillStyle = rnd() < .5 ? `rgba(255,255,255,${.1 + rnd() * .2})` : `rgba(60,65,75,${.05 + rnd() * .12})`; lx.fill();
+    }
+    lx.shadowColor = 'rgba(0,0,0,.18)'; lx.shadowBlur = S * .01;
+    stains.forEach(s => { lx.fillStyle = s.c; s.blobs.forEach(b => { lx.beginPath(); lx.arc(b.x * S, b.y * S, b.r * S, 0, Math.PI * 2); lx.fill(); }); });
+    lx.restore();
+    lx.beginPath(); lx.arc(S / 2, S / 2, S * .48, 0, Math.PI * 2); lx.lineWidth = S * .022; lx.strokeStyle = '#7d838a'; lx.stroke();
+  }
+  function sizeCanvas() {
+    const w = lc.getBoundingClientRect().width; if (!w) return;
+    LD = Math.min(devicePixelRatio || 1, 2); const ns = Math.round(w * LD);
+    if (ns === S) return; S = lc.width = lc.height = ns; drawFoil();
+  }
+  const pt = e => { const r = lc.getBoundingClientRect(); return { x: (e.clientX - r.left) * LD, y: (e.clientY - r.top) * LD }; };
+  function pen() { lx.strokeStyle = '#111'; lx.fillStyle = '#111'; lx.lineWidth = Math.max(4, S * .014); lx.lineCap = 'round'; lx.lineJoin = 'round'; }
+  lc.addEventListener('pointerdown', e => { drawing = true; last = pt(e); lc.setPointerCapture(e.pointerId); pen(); lx.beginPath(); lx.arc(last.x, last.y, lx.lineWidth / 2, 0, 6.283); lx.fill(); });
+  lc.addEventListener('pointermove', e => { if (!drawing) return; const p = pt(e); pen(); lx.beginPath(); lx.moveTo(last.x, last.y); lx.lineTo(p.x, p.y); lx.stroke(); last = p; });
+  ['pointerup', 'pointercancel', 'pointerleave'].forEach(ev => lc.addEventListener(ev, () => { drawing = false; }));
+  $('#lick-new').addEventListener('click', () => { newStains(); drawFoil(); sfx.splash(); });
+  $('#lick-clear').addEventListener('click', () => { drawFoil(); sfx.pop(); });
+  $('#lick-save').addEventListener('click', () => {
+    try { const a = document.createElement('a'); a.download = 'mi-lickart-alpina.png'; a.href = lc.toDataURL('image/png'); a.click(); sfx.fanfare(); toast('¡Lick-Art guardado!', ' Ahora hazlo en tu tapa de verdad y compártelo con #LickArtAlpina.'); }
+    catch { toast('No se pudo guardar', ' Toma un pantallazo de tu dibujo.'); }
+  });
+  newStains(); sizeCanvas();
+  addEventListener('resize', () => { clearTimeout(sizeCanvas.t); sizeCanvas.t = setTimeout(sizeCanvas, 200); });
+
+  /* ================= FILTRO AR: DEMO ================= */
+  const phone = $('#ar-phone'); let arI = 0, arT = null;
+  function arCycle() {
+    const k = KEYS[arI++ % KEYS.length];
+    phone.classList.remove('on', 'glitch'); void phone.offsetWidth; phone.classList.add('glitch');
+    setTimeout(() => { $('#ar-monster').src = M[k].img; $('#ar-label').textContent = `¡${M[k].name} ${M[k].lib}!`; phone.classList.remove('glitch'); phone.classList.add('on'); }, 700);
+  }
+  new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting && !arT) { arCycle(); arT = setInterval(arCycle, 4200); }
+    else if (!e.isIntersecting && arT) { clearInterval(arT); arT = null; }
+  }), { threshold: .3 }).observe(phone);
+
+  /* ================= ENLACES ================= */
+  $$('[data-link]').forEach(a => {
+    const url = CONFIG.links[a.dataset.link];
+    if (url) { a.href = url; a.target = '_blank'; a.rel = 'noopener'; }
+    else a.addEventListener('click', e => { e.preventDefault(); toast('¡Muy pronto!', ' Este portal todavía se está abriendo. 🌀'); });
+  });
+  $$('[data-todo]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); toast('Documento pendiente', ' Lo entrega el equipo legal de la campaña.'); }));
+})();
+</script>
+</body>
+</html>
